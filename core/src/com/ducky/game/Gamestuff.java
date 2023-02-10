@@ -13,38 +13,42 @@ public class Gamestuff extends ApplicationAdapter {
       float speedX = 40;
 	  float speedY = 60;
 
-	  Vector3 playerrecsize = new Vector3(50, 50, 50);
+	  int test1 = 50;
+	  int test2 = 50;
+	  int test3 = 50;
+	  Vector3 playerrecpos = new Vector3(50, 50, 50);
 	  Shapes objstuff1 = new Shapes();
+
+
 
     @Override
 	public void create ()
 	{
        objstuff1.shapes = new ShapeRenderer();
+
 	}
 	@Override
 	public void render () {
-		ScreenUtils.clear(0, 1, 1, 1);
+		ScreenUtils.clear(1, 0, 1, 1);
 
+		 objstuff1.rectangles(playerrecpos.x, playerrecpos.y, playerrecpos.z, 50, 50, 50);
 
-
-		 objstuff1.rectangles(playerrecsize.x, playerrecsize.y, playerrecsize.z, 50, 50, 50);
+		 objstuff1.rectangles(50, 50, 50, 80, 50, 50);
 
 		 if(Gdx.input.isKeyPressed(Keys.D))
 		 {
-             playerrecsize.x += speedX * Gdx.graphics.getDeltaTime();
+             playerrecpos.x += speedX * Gdx.graphics.getDeltaTime();
 		 }
 		if(Gdx.input.isKeyPressed(Keys.A))
 		{
-			playerrecsize.x -= speedX * Gdx.graphics.getDeltaTime();
+			playerrecpos.x -= speedX * Gdx.graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.W))
 		{
-			playerrecsize.y += speedY * Gdx.graphics.getDeltaTime();
+			playerrecpos.y += speedY * Gdx.graphics.getDeltaTime();
 		}
-		if(Gdx.input.isKeyPressed(Keys.S))
-		{
-			playerrecsize.y -= speedY * Gdx.graphics.getDeltaTime();
-		}
+
+
 	}
 	
 	@Override
