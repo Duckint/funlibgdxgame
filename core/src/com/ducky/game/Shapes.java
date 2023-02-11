@@ -6,16 +6,16 @@ public class Shapes {
     ShapeRenderer shapes;
 
 
-    public void rectangles(float recx, float recy, float recz, float recwidth, float recheight, float recdepth)
+    public void rectangles(float recx, float recy, float recwidth, float recheight)
     {
 
 
-
             shapes.begin(ShapeRenderer.ShapeType.Line);
-            shapes.box(recx, recy, recz, recwidth, recheight, recdepth);
+            shapes.rect(recx, recy, recwidth, recheight);
             shapes.end();
 
 
-      }
+    }
+
 
 }

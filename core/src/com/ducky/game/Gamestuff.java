@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL20;
 
 public class Gamestuff extends ApplicationAdapter {
 
@@ -16,7 +17,7 @@ public class Gamestuff extends ApplicationAdapter {
 	  int test1 = 50;
 	  int test2 = 50;
 	  int test3 = 50;
-	  Vector3 playerrecpos = new Vector3(50, 50, 50);
+	  Vector3 playerrecpos = new Vector3(50, 150, 50);
 	  Shapes objstuff1 = new Shapes();
 
 
@@ -31,9 +32,10 @@ public class Gamestuff extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
 
-		 objstuff1.rectangles(playerrecpos.x, playerrecpos.y, playerrecpos.z, 50, 50, 50);
+		 objstuff1.rectangles(playerrecpos.x, playerrecpos.y, playerrecpos.z, 50);
 
-		 objstuff1.rectangles(50, 50, 50, 80, 50, 50);
+		 objstuff1.rectangles(50, 50, 80, 50);
+
 
 		 if(Gdx.input.isKeyPressed(Keys.D))
 		 {
