@@ -1,21 +1,25 @@
 package com.ducky.game;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Platforms {
-
-    ShapeRenderer platforms;
+import com.badlogic.gdx.math.Rectangle;
 
 
-    public void rectangles(float recx, float recy, float recwidth, float recheight )
-    {
+public class Platforms
+{
 
 
-            platforms.begin(ShapeRenderer.ShapeType.Line);
-            platforms.rect(recx, recy, recwidth, recheight);
-            platforms.end();
+    private Rectangle rectangle;
 
-
+    private Platforms(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public static Platforms createRectangle(float x, float y, float width, float height) {
+        Rectangle rectangle = new Rectangle(x, y, width, height);
+        return new Platforms(rectangle);
+    }
 
 }

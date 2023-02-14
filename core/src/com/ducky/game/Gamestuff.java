@@ -6,48 +6,57 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
+import static com.badlogic.gdx.Gdx.graphics;
 
 public class Gamestuff extends ApplicationAdapter {
 
-      float speedX = 40;
+      float speedX = 60;
 	  float speedY = 60;
 
-	  int test1 = 50;
-	  int test2 = 50;
-	  int test3 = 50;
+	  //int test1 = 50;
+	  //int test2 = 50;
+	  //int test3 = 50;
 
-	  Platforms objstuff1 = new Platforms();
+
 	  Player objMPlayer = new Player();
+	  ShapeRenderer rects;
+	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 100, 100);
+
 
 
     @Override
 	public void create ()
 	{
-       objstuff1.platforms = new ShapeRenderer();
+
 	   objMPlayer.playerRender = new ShapeRenderer();
+	   rects = new ShapeRenderer();
+
+
 	}
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
 
 		 objMPlayer.playerdraw();
-
-		 objstuff1.rectangles(50, 50, 80, 50);
-
-
-
-		 if(Gdx.input.isKeyPressed(Keys.D))
+		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
-             objMPlayer.player.x += speedX * Gdx.graphics.getDeltaTime();
+			 objMPlayer.player.x -= speedX * graphics.getDeltaTime();
 		 }
-		if(Gdx.input.isKeyPressed(Keys.A))
+		if(Gdx.input.isKeyPressed(Keys.D))
 		{
-			objMPlayer.player.x  -= speedX * Gdx.graphics.getDeltaTime();
+			objMPlayer.player.x += speedX * graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.W))
 		{
-			objMPlayer.player.y += speedY * Gdx.graphics.getDeltaTime();
+			objMPlayer.player.y += speedX * graphics.getDeltaTime();
 		}
+		 rects.begin(ShapeRenderer.ShapeType.Line);
+		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
+         rects.end();
+
+
+
+
 
 
 	}

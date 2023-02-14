@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Player {
     ShapeRenderer playerRender;
-    Platforms obj2 = new Platforms();
-    Rectangle player = new Rectangle(50, 50, 50, 50);
+    public Rectangle player = new Rectangle(50, 100, 50, 50);
+    public float playerFallSpeed = 20;
 
     public void playerdraw()
     {
