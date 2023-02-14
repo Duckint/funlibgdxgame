@@ -27,7 +27,7 @@ public class Gamestuff extends ApplicationAdapter {
 	  ShapeRenderer rects;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 200, 20);
 
-	
+
 
 	public void input()
 	 {
@@ -41,7 +41,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 {
 			 objMPlayer.player.x += speedX * graphics.getDeltaTime();
 		 }
-		 if(Gdx.input.isKeyPressed(Keys.W))
+		 if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump)
 		 {
 			 objMPlayer.player.y += speedY * graphics.getDeltaTime();
 			 objMPlayer.isPlayerJumping = true;
@@ -67,9 +67,10 @@ public class Gamestuff extends ApplicationAdapter {
 		 input();
 		 if(objMPlayer.isPlayerJumping)
 		 {
-            if(secondsElapsed >= 10)
+            if(secondsElapsed >= 1)
 			{
-
+               objMPlayer.canJump = false;
+			   objMPlayer.player.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 			}
 		 }
 
