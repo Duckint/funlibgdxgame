@@ -22,8 +22,21 @@ public class Gamestuff extends ApplicationAdapter {
 	  ShapeRenderer rects;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 100, 100);
 
-
-
+	  public void input()
+	 {
+		 if(Gdx.input.isKeyPressed(Keys.A))
+		 {
+			 objMPlayer.player.x -= speedX * graphics.getDeltaTime();
+		 }
+		 if(Gdx.input.isKeyPressed(Keys.D))
+		 {
+			 objMPlayer.player.x += speedX * graphics.getDeltaTime();
+		 }
+		 if(Gdx.input.isKeyPressed(Keys.W))
+		 {
+			 objMPlayer.player.y += speedY * graphics.getDeltaTime();
+		 }
+	 }
     @Override
 	public void create ()
 	{
@@ -38,18 +51,7 @@ public class Gamestuff extends ApplicationAdapter {
 		ScreenUtils.clear(1, 0, 1, 1);
 
 		 objMPlayer.playerdraw();
-		 if(Gdx.input.isKeyPressed(Keys.A))
-		 {
-			 objMPlayer.player.x -= speedX * graphics.getDeltaTime();
-		 }
-		if(Gdx.input.isKeyPressed(Keys.D))
-		{
-			objMPlayer.player.x += speedX * graphics.getDeltaTime();
-		}
-		if(Gdx.input.isKeyPressed(Keys.W))
-		{
-			objMPlayer.player.y += speedX * graphics.getDeltaTime();
-		}
+		 input();
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
