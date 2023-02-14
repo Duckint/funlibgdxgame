@@ -1,12 +1,12 @@
 package com.ducky.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
 import static com.badlogic.gdx.Gdx.graphics;
+import com.badlogic.gdx.math.Intersector;
 
 public class Gamestuff extends ApplicationAdapter {
 
@@ -52,6 +52,10 @@ public class Gamestuff extends ApplicationAdapter {
 
 		 objMPlayer.playerdraw();
 		 input();
+		 if(Intersector.overlaps(objMPlayer.player, rectangle1.getRectangle()))
+		 {
+			 System.out.println("hey im colliding lmfao");
+		 }
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
