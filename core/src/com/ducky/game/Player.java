@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Player {
     ShapeRenderer playerRender;
     public Rectangle player = new Rectangle(100, 140, 50, 50);
-    public float playerFallSpeed = 20;
+    public float playerFallSpeed = 60;
+
     public boolean isPlayerJumping;
 
-    //this is just stating that I want it to be true by default.
+    //this is a reminder to myself that this variable should start true
     public boolean canJump = true;
 
     public void playerdraw()

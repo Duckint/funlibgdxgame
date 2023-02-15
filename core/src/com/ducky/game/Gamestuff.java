@@ -28,7 +28,14 @@ public class Gamestuff extends ApplicationAdapter {
 	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 200, 20);
 
 
-
+    public void rectcollision()
+	{
+		if(Intersector.overlaps(objMPlayer.player, rectangle1.getRectangle()))
+		{
+			objMPlayer.canJump = true;
+			startTime = TimeUtils.nanoTime();
+		}
+	}
 	public void input()
 	 {
 
@@ -46,6 +53,7 @@ public class Gamestuff extends ApplicationAdapter {
 			 objMPlayer.player.y += speedY * graphics.getDeltaTime();
 			 objMPlayer.isPlayerJumping = true;
 		 }
+
 	 }
     @Override
 	public void create ()
@@ -65,18 +73,18 @@ public class Gamestuff extends ApplicationAdapter {
 		 float secondsElapsed = (TimeUtils.nanoTime() - startTime) / 1_000_000_000f;
 		 objMPlayer.playerdraw();
 		 input();
+
+		 //there's probably a better way to do this, but I'll figure it out some other day
 		 if(objMPlayer.isPlayerJumping)
 		 {
-            if(secondsElapsed >= 1)
-			{
+            if(secondsElapsed >= 3 )			{
                objMPlayer.canJump = false;
 			   objMPlayer.player.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
+
 			}
 		 }
+		 rectcollision();
 
-
-		 //if(Intersector.overlaps(objMPlayer.player, rectangle1.getRectangle()))
-	     //System.out.println("hey im colliding lmfao")
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
