@@ -90,11 +90,6 @@ public class Gamestuff extends ApplicationAdapter {
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
 
-
-
-
-
-
 	}
 	
 	@Override
