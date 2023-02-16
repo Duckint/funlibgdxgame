@@ -1,6 +1,7 @@
 package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.Input.Keys;
 import static com.badlogic.gdx.Gdx.graphics;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
+import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
 
@@ -25,12 +27,16 @@ public class Gamestuff extends ApplicationAdapter {
 	  Player objMPlayer = new Player();
 
 	  ShapeRenderer rects;
+	  private ArrayList<Rectangle> rectangleArray;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 200, 20);
+
+
+
 
 
     public void rectcollision()
 	{
-		if(Intersector.overlaps(objMPlayer.player, rectangle1.getRectangle()))
+		if(Intersector.overlaps(rectangleArray.get(0), rectangleArray.get(1)))
 		{
 			objMPlayer.canJump = true;
 			startTime = TimeUtils.nanoTime();
@@ -58,13 +64,12 @@ public class Gamestuff extends ApplicationAdapter {
     @Override
 	public void create ()
 	{
-
+		rectangleArray = new ArrayList<Rectangle>();
 	   objMPlayer.playerRender = new ShapeRenderer();
 	   rects = new ShapeRenderer();
 	   startTime = TimeUtils.nanoTime();
-
-
-
+	   rectangleArray.add(rectangle1.getRectangle());
+	   rectangleArray.add(objMPlayer.player);
 
 	}
 	@Override
@@ -77,7 +82,8 @@ public class Gamestuff extends ApplicationAdapter {
 		 //there's probably a better way to do this, but I'll figure it out some other day
 		 if(objMPlayer.isPlayerJumping)
 		 {
-            if(secondsElapsed >= 3 )			{
+            if(secondsElapsed >= 2 )
+			{
                objMPlayer.canJump = false;
 			   objMPlayer.player.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 
