@@ -44,8 +44,6 @@ public class Gamestuff extends ApplicationAdapter {
 	}
 	public void input()
 	 {
-
-
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
 			 objMPlayer.player.x -= speedX * graphics.getDeltaTime();
@@ -59,7 +57,6 @@ public class Gamestuff extends ApplicationAdapter {
 			 objMPlayer.player.y += speedY * graphics.getDeltaTime();
 			 objMPlayer.isPlayerJumping = true;
 		 }
-
 	 }
     @Override
 	public void create ()
@@ -70,7 +67,6 @@ public class Gamestuff extends ApplicationAdapter {
 	   startTime = TimeUtils.nanoTime();
 	   rectangleArray.add(rectangle1.getRectangle());
 	   rectangleArray.add(objMPlayer.player);
-
 	}
 	@Override
 	public void render () {
@@ -91,11 +87,9 @@ public class Gamestuff extends ApplicationAdapter {
 		 }
 		 rectcollision();
 
-
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
-
 	}
 	
 	@Override
