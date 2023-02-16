@@ -2,6 +2,7 @@ package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -16,6 +17,7 @@ public class Gamestuff extends ApplicationAdapter {
       float speedX = 60;
 	  float speedY = 60;
 	  long startTime;
+	   public Vector2 playerPos;
 
 
 
@@ -61,10 +63,19 @@ public class Gamestuff extends ApplicationAdapter {
     @Override
 	public void create ()
 	{
+		objMPlayer.playerVelocity = new Vector2(0, 0);
+		playerPos = new Vector2(50, 50);
+		objMPlayer.player.x = playerPos.x;
+		objMPlayer.player.y = playerPos.y;
+
+
 		rectangleArray = new ArrayList<Rectangle>();
+
 	   objMPlayer.playerRender = new ShapeRenderer();
 	   rects = new ShapeRenderer();
+
 	   startTime = TimeUtils.nanoTime();
+
 	   rectangleArray.add(rectangle1.getRectangle());
 	   rectangleArray.add(objMPlayer.player);
 	}
@@ -74,6 +85,8 @@ public class Gamestuff extends ApplicationAdapter {
 		 float secondsElapsed = (TimeUtils.nanoTime() - startTime) / 1_000_000_000f;
 		 objMPlayer.playerdraw();
 		 input();
+
+
 
 		 //there's probably a better way to do this, but I'll figure it out some other day
 		 if(objMPlayer.isPlayerJumping)
