@@ -8,19 +8,21 @@ public class Player {
 
 
     public Vector2 playerVelocity;
-    public Rectangle player = new Rectangle(50, 50, 50, 50);
-    public float playerFallSpeed = 60;
-    public boolean isPlayerJumping;
-    //this is a reminder to myself that this variable should start true
-    public boolean canJump = true;
+    public Vector2 playerPos = new Vector2(140, 120);
+    public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
 
+    public float playerFallSpeed = 0.8f;
+    //public boolean isPlayerJumping; this variable has no use atm
+    //this is a reminder to myself that this variable should start true
+    public boolean canJump = false;
+    public float jumpPowa = 1.2f;
 
 
 
     public void playerdraw()
     {
         playerRender.begin(ShapeRenderer.ShapeType.Line);
-        playerRender.rect(player.x, player.y, player.width, player.height);
+        playerRender.rect(playerPos.x, playerPos.y, player.width, player.height);
         playerRender.end();
     }
 

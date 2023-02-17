@@ -15,9 +15,8 @@ import java.util.ArrayList;
 public class Gamestuff extends ApplicationAdapter {
 
       float speedX = 60;
-	  float speedY = 60;
 	  long startTime;
-	   public Vector2 playerPos;
+
 
 
 
@@ -30,7 +29,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	  ShapeRenderer rects;
 	  private ArrayList<Rectangle> rectangleArray;
-	  Platforms rectangle1 = Platforms.createRectangle(100, 100, 200, 20);
+	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 
 
 
@@ -40,33 +39,33 @@ public class Gamestuff extends ApplicationAdapter {
 	{
 		if(Intersector.overlaps(rectangleArray.get(0), rectangleArray.get(1)))
 		{
-			objMPlayer.canJump = true;
 			startTime = TimeUtils.nanoTime();
+			objMPlayer.playerVelocity.y = 0;
+			objMPlayer.playerPos.y = 120;
+			objMPlayer.canJump = true;
 		}
 	}
 	public void input()
 	 {
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
-			 objMPlayer.player.x -= speedX * graphics.getDeltaTime();
+			 objMPlayer.playerPos.x -= speedX * graphics.getDeltaTime();
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.D))
 		 {
-			 objMPlayer.player.x += speedX * graphics.getDeltaTime();
+			 objMPlayer.playerPos.x += speedX * graphics.getDeltaTime();
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump)
 		 {
-			 objMPlayer.player.y += speedY * graphics.getDeltaTime();
-			 objMPlayer.isPlayerJumping = true;
+			 objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
+			 objMPlayer.canJump = false;
 		 }
 	 }
     @Override
 	public void create ()
 	{
 		objMPlayer.playerVelocity = new Vector2(0, 0);
-		playerPos = new Vector2(50, 50);
-		objMPlayer.player.x = playerPos.x;
-		objMPlayer.player.y = playerPos.y;
+
 
 
 		rectangleArray = new ArrayList<Rectangle>();
@@ -78,6 +77,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	   rectangleArray.add(rectangle1.getRectangle());
 	   rectangleArray.add(objMPlayer.player);
+
 	}
 	@Override
 	public void render () {
@@ -86,19 +86,17 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerdraw();
 		 input();
 
+		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 
-
+		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 		 //there's probably a better way to do this, but I'll figure it out some other day
-		 if(objMPlayer.isPlayerJumping)
-		 {
-            if(secondsElapsed >= 2 )
-			{
-               objMPlayer.canJump = false;
-			   objMPlayer.player.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 
-			}
+		 if(objMPlayer.playerPos.y <= 102)
+		 {
+			 objMPlayer.playerVelocity.y = 0;
+			 objMPlayer.playerPos.y = 102;
+			 objMPlayer.canJump = true;
 		 }
-		 rectcollision();
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
