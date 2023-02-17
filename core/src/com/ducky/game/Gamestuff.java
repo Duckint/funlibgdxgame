@@ -35,13 +35,12 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 
-    public void rectcollision()
+    public void platformCollision(float collidepos)
 	{
-		if(Intersector.overlaps(rectangleArray.get(0), rectangleArray.get(1)))
+		if(objMPlayer.playerPos.y <= collidepos)
 		{
-			startTime = TimeUtils.nanoTime();
 			objMPlayer.playerVelocity.y = 0;
-			objMPlayer.playerPos.y = 120;
+			objMPlayer.playerPos.y = collidepos;
 			objMPlayer.canJump = true;
 		}
 	}
@@ -91,12 +90,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 		 //there's probably a better way to do this, but I'll figure it out some other day
 
-		 if(objMPlayer.playerPos.y <= 102)
-		 {
-			 objMPlayer.playerVelocity.y = 0;
-			 objMPlayer.playerPos.y = 102;
-			 objMPlayer.canJump = true;
-		 }
+		 platformCollision(rectangle1.getRectangle().y + 22);
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
