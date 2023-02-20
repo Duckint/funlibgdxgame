@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
 import static com.badlogic.gdx.Gdx.graphics;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 import java.util.ArrayList;
 
@@ -16,14 +15,6 @@ public class Gamestuff extends ApplicationAdapter {
 
       float speedX = 60;
 	  long startTime;
-
-
-
-
-	  //int test1 = 50;
-	  //int test2 = 50;
-	  //int test3 = 50;
-
 
 	  Player objMPlayer = new Player();
 
