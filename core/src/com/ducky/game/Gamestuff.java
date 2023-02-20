@@ -72,16 +72,19 @@ public class Gamestuff extends ApplicationAdapter {
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
-		 float secondsElapsed = (TimeUtils.nanoTime() - startTime) / 1_000_000_000f;
+		 
 		 objMPlayer.playerdraw();
 		 input();
 
+
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 
-		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
-		 //there's probably a better way to do this, but I'll figure it out some other day
-
 		 platformCollision(rectangle1.getRectangle().y + 22);
+
+		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
+		 //i figured out a better way, but now gravity doesn't properly work:(
+
+
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
