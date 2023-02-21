@@ -10,10 +10,11 @@ public class Player {
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
 
     public float playerFallSpeed = 1.0f;
-    //public boolean isPlayerJumping; this variable has no use atm
+    public boolean isPlayerJumping;
     //this is a reminder to myself that this variable should start true
     public boolean canJump = false;
     public float jumpPowa = 1.3f;
+    public float jumpDuration;
 
 
 

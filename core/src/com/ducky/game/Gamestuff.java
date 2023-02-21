@@ -26,12 +26,12 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 
-    public void platformCollision(float collidepos)
+    public void platformCollision(Rectangle collidepos)
 	{
-		if(objMPlayer.playerPos.y <= collidepos)
+		if(objMPlayer.player.overlaps(collidepos))
 		{
 			objMPlayer.playerVelocity.y = 0;
-			objMPlayer.playerPos.y = collidepos;
+			objMPlayer.playerPos.y = collidepos.y + collidepos.height;
 			objMPlayer.canJump = true;
 		}
 	}
@@ -79,7 +79,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 
-		 platformCollision(rectangle1.getRectangle().y + 22);
+		 platformCollision(rectangle1.getRectangle());
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
 		 //i figured out a better way, but now gravity doesn't properly work:(
@@ -89,6 +89,8 @@ public class Gamestuff extends ApplicationAdapter {
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
+
+		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 	}
 	
 	@Override
