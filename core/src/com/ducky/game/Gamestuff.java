@@ -20,6 +20,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	  ShapeRenderer rects;
 	  private ArrayList<Rectangle> rectangleArray;
+	  private ArrayList<Rectangle> wallArray;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 
 
@@ -34,6 +35,7 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.playerPos.y = collidepos.y + collidepos.height;
 			objMPlayer.canJump = true;
 		}
+
 	}
 	public void input()
 	 {
@@ -82,7 +84,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 platformCollision(rectangle1.getRectangle());
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
-		 //i figured out a better way, but now gravity doesn't properly work:(
+		 //gravity works now
 
 
 
