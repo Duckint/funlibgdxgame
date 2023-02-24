@@ -15,6 +15,7 @@ public class Player {
     public boolean canJump = false;
     public float jumpPowa = 1.3f;
     public float jumpDuration;
+    public boolean canSlam;
 
 
 
