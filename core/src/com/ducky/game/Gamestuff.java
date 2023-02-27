@@ -15,6 +15,7 @@ public class Gamestuff extends ApplicationAdapter {
 
       float speedX = 60;
 	  long startTime;
+	  long elapsedTime;
 
 	  Player objMPlayer = new Player();
 
@@ -35,9 +36,8 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.playerPos.y = collidepos.y + collidepos.height;
 			objMPlayer.canJump = true;
 			objMPlayer.canSlam = false;
-			objMPlayer.currentFallSpeed = 1.0f;
+			objMPlayer.isSlamming = false;
 		}
-
 	}
 	public void input()
 	 {
@@ -56,9 +56,11 @@ public class Gamestuff extends ApplicationAdapter {
 			 objMPlayer.isPlayerJumping = true;
 			 objMPlayer.canSlam = true;
 		 }
-		 if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam)
+		 if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping)
 		 {
-              objMPlayer.playerVelocity.y = -10.0f;
+			  objMPlayer.playerVelocity.y = -10.0f;
+			  objMPlayer.isSlamming = true;
+			  objMPlayer.canSlam = false;
 		 }
 	 }
     @Override
@@ -75,6 +77,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	   startTime = TimeUtils.nanoTime();
 
+
 	   rectangleArray.add(rectangle1.getRectangle());
 	   rectangleArray.add(objMPlayer.player);
 
@@ -82,12 +85,14 @@ public class Gamestuff extends ApplicationAdapter {
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
-		 
+
+		 elapsedTime = System.nanoTime() - startTime;
 		 objMPlayer.playerdraw();
 		 input();
 
 
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
+		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
 		 platformCollision(rectangle1.getRectangle());
 
@@ -99,7 +104,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
          rects.end();
 
-		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
+
 	}
 	
 	@Override
