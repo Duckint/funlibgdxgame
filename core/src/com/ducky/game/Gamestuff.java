@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
 
-      float speedX = 60;
+      float speedX = 90;
 	  long startTime;
 	  long elapsedTime;
 
