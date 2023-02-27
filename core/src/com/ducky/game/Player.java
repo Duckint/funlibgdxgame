@@ -9,13 +9,13 @@ public class Player {
     public Vector2 playerPos = new Vector2(140, 120);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
 
-    public float playerFallSpeed = 1.0f;
+    public float currentFallSpeed = 1.0f;
     public boolean isPlayerJumping;
-    //this is a reminder to myself that this variable should start true
     public boolean canJump = false;
     public float jumpPowa = 1.3f;
-    public float jumpDuration;
-    public boolean canSlam;
+    //public float jumpDuration; may be reused later, but atm I have no need for it
+    public boolean canSlam = false;
+    public boolean isSlamming = false;
 
 
 

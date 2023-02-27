@@ -34,6 +34,8 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerPos.y = collidepos.y + collidepos.height;
 			objMPlayer.canJump = true;
+			objMPlayer.canSlam = false;
+			objMPlayer.currentFallSpeed = 1.0f;
 		}
 
 	}
@@ -51,6 +53,12 @@ public class Gamestuff extends ApplicationAdapter {
 		 {
 			 objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
 			 objMPlayer.canJump = false;
+			 objMPlayer.isPlayerJumping = true;
+			 objMPlayer.canSlam = true;
+		 }
+		 if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam)
+		 {
+              objMPlayer.playerVelocity.y = -10.0f;
 		 }
 	 }
     @Override
@@ -83,8 +91,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 		 platformCollision(rectangle1.getRectangle());
 
-		 objMPlayer.playerVelocity.y -= objMPlayer.playerFallSpeed * graphics.getDeltaTime();
-		 //gravity works now
+		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 
 
