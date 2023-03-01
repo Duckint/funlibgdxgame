@@ -44,7 +44,8 @@ public class Gamestuff extends ApplicationAdapter {
 	 {
 		 if(Gdx.input.isKeyPressed(Keys.R))
 		 {
-
+             objMPlayer.playerPos.x = 140;
+			 objMPlayer.playerPos.y = 120;
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
