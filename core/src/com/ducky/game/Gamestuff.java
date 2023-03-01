@@ -23,6 +23,7 @@ public class Gamestuff extends ApplicationAdapter {
 	  private ArrayList<Rectangle> rectangleArray;
 	  private ArrayList<Rectangle> wallArray;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
+	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 50, 50);
 
 
 
@@ -41,6 +42,10 @@ public class Gamestuff extends ApplicationAdapter {
 	}
 	public void input()
 	 {
+		 if(Gdx.input.isKeyPressed(Keys.R))
+		 {
+
+		 }
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
 			 objMPlayer.playerPos.x -= speedX * graphics.getDeltaTime();
@@ -79,6 +84,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 	   rectangleArray.add(rectangle1.getRectangle());
+	   rectangleArray.add(rectangle2.getRectangle());
 	   rectangleArray.add(objMPlayer.player);
 
 	}
@@ -95,13 +101,15 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
 		 platformCollision(rectangle1.getRectangle());
+		 platformCollision(rectangle2.getRectangle());
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
-		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height) ;
+		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height);
+		 rects.rect(rectangle2.getRectangle().x, rectangle2.getRectangle().y, rectangle2.getRectangle().width, rectangle2.getRectangle().height);
          rects.end();
 
 
