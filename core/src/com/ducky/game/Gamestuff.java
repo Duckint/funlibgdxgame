@@ -18,12 +18,18 @@ public class Gamestuff extends ApplicationAdapter {
 	  long elapsedTime;
 
 	  Player objMPlayer = new Player();
+	  Enemy objEnemy = new Enemy();
 
 	  ShapeRenderer rects;
-	  private ArrayList<Rectangle> rectangleArray;
+	  private ArrayList<Rectangle> platformArray;
+	  private ArrayList<Rectangle> enemyArray;
 	  private ArrayList<Rectangle> wallArray;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
-	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 50, 50);
+	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+
+
+
+
 
 
 
@@ -69,14 +75,20 @@ public class Gamestuff extends ApplicationAdapter {
 			  objMPlayer.canSlam = false;
 		 }
 	 }
+	 public void Enemies()
+	 {
+		Rectangle enemy1rect1 = objEnemy.enemyType1(50, 50, 10, 10);
+		enemyArray.add(enemy1rect1);
+	 }
     @Override
 	public void create ()
 	{
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
-
-		rectangleArray = new ArrayList<Rectangle>();
+		platformArray = new ArrayList<Rectangle>();
+		enemyArray = new ArrayList<Rectangle>();
+		Enemies();
 
 	   objMPlayer.playerRender = new ShapeRenderer();
 	   rects = new ShapeRenderer();
@@ -84,9 +96,10 @@ public class Gamestuff extends ApplicationAdapter {
 	   startTime = TimeUtils.nanoTime();
 
 
-	   rectangleArray.add(rectangle1.getRectangle());
-	   rectangleArray.add(rectangle2.getRectangle());
-	   rectangleArray.add(objMPlayer.player);
+	   platformArray.add(rectangle1.getRectangle());
+	   platformArray.add(rectangle2.getRectangle());
+	   platformArray.add(objMPlayer.player);
+
 
 	}
 	@Override
@@ -101,16 +114,17 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
-		 platformCollision(rectangle1.getRectangle());
-		 platformCollision(rectangle2.getRectangle());
+		 platformCollision(platformArray.get(0));
+		 platformCollision(platformArray.get(1));
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
-		 rects.rect(rectangle1.getRectangle().x, rectangle1.getRectangle().y, rectangle1.getRectangle().width, rectangle1.getRectangle().height);
-		 rects.rect(rectangle2.getRectangle().x, rectangle2.getRectangle().y, rectangle2.getRectangle().width, rectangle2.getRectangle().height);
+		 rects.rect(platformArray.get(0).x, platformArray.get(0).y, platformArray.get(0).width, platformArray.get(0).height);
+		 rects.rect(platformArray.get(1).x, platformArray.get(1).y, platformArray.get(1).width, platformArray.get(1).height);
+         rects.rect(enemyArray.get(0).x, enemyArray.get(0).y, enemyArray.get(0).width, enemyArray.get(0).height);
          rects.end();
 
 
