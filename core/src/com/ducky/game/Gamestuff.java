@@ -91,7 +91,7 @@ public class Gamestuff extends ApplicationAdapter {
 	   platformArray.add(rectangle2.getRectangle());
 	   platformArray.add(objMPlayer.player);
 
-	   enemy = new Enemy(500, 120, 32, 32, 10, 50);
+	   enemy = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 	   enemyArray.add(enemy.getRectangle());
 
 	}
@@ -113,6 +113,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 		 enemy.enemyType1();
+
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(platformArray.get(0).x, platformArray.get(0).y, platformArray.get(0).width, platformArray.get(0).height);

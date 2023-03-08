@@ -6,58 +6,49 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemy {
 
 
-     private float eSpeedX = 90f;
+     private float eSpeedX = 90.0f;
      private float startX;
      private float startY;
      private float width;
      private float height;
-     private float distanceTrvX;
-     private Rectangle enrectangle;
-     boolean movingRight = true;
+     private float leftEdge;
+     private float rightEdge;
+     private Rectangle rectangle;
 
-     public Enemy(float startX, float startY, float width, float height, float eSpeedX, float distanceTrvX)
+
+     public Enemy(float startX, float startY, float width, float height, float eSpeedX, float leftEdge, float rightEdge)
      {
+
+         rectangle = new Rectangle (startX, startY, width, height);
          this.startX = startX;
          this.startY = startY;
          this.width = width;
          this.height = height;
          this.eSpeedX = eSpeedX;
-         this.distanceTrvX = distanceTrvX;
+         this.leftEdge = leftEdge;
+         this.rightEdge = rightEdge;
 
-         enrectangle = new Rectangle(startX, startY, width, height);
      }
-     public float geteSpeedX()
-     {
-         return eSpeedX;
-     }
+
     public void enemyType1()
     {
         float delta = Gdx.graphics.getDeltaTime();
-        float x = startX;
 
-        if(movingRight)
+        if(rectangle.x < leftEdge)
         {
-           x += eSpeedX * delta;
-           if(x >= startX + distanceTrvX)
-           {
-               movingRight = false;
-               eSpeedX = -eSpeedX;
-           }
+            rectangle.x = leftEdge;
+            eSpeedX = -eSpeedX;
         }
-        else
+        else if(rectangle.x + rectangle.width > rightEdge)
         {
-            x += eSpeedX * delta;
-            if(x <= startX)
-            {
-                movingRight = true;
-                eSpeedX = -eSpeedX;
-            }
+           rectangle.x = rightEdge - rectangle.width;
+           eSpeedX = -eSpeedX;
         }
-
+        rectangle.x += eSpeedX * delta;
     }
     public Rectangle getRectangle()
     {
-        return new Rectangle(startX, startY, width, height);
+        return rectangle;
     }
     public Rectangle enemyType2()
     {
