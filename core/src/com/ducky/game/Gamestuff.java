@@ -30,18 +30,21 @@ public class Gamestuff extends ApplicationAdapter {
 	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
 
 
-    public void platformCollision(Rectangle collidepos)
+    public void platformCollision()
 	{
-		for(Rectangle )
-
-		if(objMPlayer.player.overlaps(collidepos))
+		for(Rectangle platCollide : platformArray )
 		{
-			objMPlayer.playerVelocity.y = 0;
-			objMPlayer.playerPos.y = collidepos.y + collidepos.height;
-			objMPlayer.canJump = true;
-			objMPlayer.canSlam = false;
-			objMPlayer.isSlamming = false;
+			if(objMPlayer.player.overlaps(platCollide))
+			{
+				objMPlayer.playerVelocity.y = 0;
+				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
+				objMPlayer.canJump = true;
+				objMPlayer.canSlam = false;
+				objMPlayer.isSlamming = false;
+			}
 		}
+
+
 	}
 	public void enemyCollision()
 	{
@@ -102,7 +105,6 @@ public class Gamestuff extends ApplicationAdapter {
 
 	   platformArray.add(rectangle1.getRectangle());
 	   platformArray.add(rectangle2.getRectangle());
-	   platformArray.add(objMPlayer.player);
 
 	   enemy = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 	   enemy1Array.add(enemy.getRectangle());
@@ -119,8 +121,8 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
-		 platformCollision(platformArray.get(0));
-		 platformCollision(platformArray.get(1));
+		 platformCollision();
+
 
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
