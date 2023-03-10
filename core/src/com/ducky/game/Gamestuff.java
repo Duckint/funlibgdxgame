@@ -24,7 +24,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	  ShapeRenderer rects;
 	  private ArrayList<Rectangle> platformArray;
-	  private ArrayList<Rectangle> enemyArray;
+	  private ArrayList<Rectangle> enemy1Array;
 	  private ArrayList<Rectangle> wallArray;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
@@ -32,6 +32,8 @@ public class Gamestuff extends ApplicationAdapter {
 
     public void platformCollision(Rectangle collidepos)
 	{
+		for(Rectangle )
+
 		if(objMPlayer.player.overlaps(collidepos))
 		{
 			objMPlayer.playerVelocity.y = 0;
@@ -39,6 +41,17 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.canJump = true;
 			objMPlayer.canSlam = false;
 			objMPlayer.isSlamming = false;
+		}
+	}
+	public void enemyCollision()
+	{
+        for (Rectangle enemyCollide1 : enemy1Array)
+		{
+
+			if(objMPlayer.player.overlaps(enemyCollide1))
+			{
+
+			}
 		}
 	}
 	public void input()
@@ -77,7 +90,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 		platformArray = new ArrayList<Rectangle>();
-		enemyArray = new ArrayList<Rectangle>();
+		enemy1Array = new ArrayList<Rectangle>();
 		wallArray = new ArrayList<Rectangle>();
 
 
@@ -92,7 +105,7 @@ public class Gamestuff extends ApplicationAdapter {
 	   platformArray.add(objMPlayer.player);
 
 	   enemy = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
-	   enemyArray.add(enemy.getRectangle());
+	   enemy1Array.add(enemy.getRectangle());
 
 	}
 	@Override
@@ -113,12 +126,13 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 		 enemy.enemyType1();
+		 enemyCollision();
 
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(platformArray.get(0).x, platformArray.get(0).y, platformArray.get(0).width, platformArray.get(0).height);
 		 rects.rect(platformArray.get(1).x, platformArray.get(1).y, platformArray.get(1).width, platformArray.get(1).height);
-         rects.rect(enemyArray.get(0).x, enemyArray.get(0).y, enemyArray.get(0).width, enemyArray.get(0).height);
+         rects.rect(enemy1Array.get(0).x, enemy1Array.get(0).y, enemy1Array.get(0).width, enemy1Array.get(0).height);
          rects.end();
 
 	}
