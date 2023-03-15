@@ -51,9 +51,11 @@ public class Gamestuff extends ApplicationAdapter {
         for (Rectangle enemyCollide1 : enemy1Array)
 		{
 
-			if(objMPlayer.player.overlaps(enemyCollide1))
-			{
+			float enemyTop = enemyCollide1.y + enemyCollide1.height;
 
+			if(objMPlayer.playerPos.y <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			{
+               enemy.enemyRender = false;
 			}
 		}
 	}
@@ -134,7 +136,10 @@ public class Gamestuff extends ApplicationAdapter {
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(platformArray.get(0).x, platformArray.get(0).y, platformArray.get(0).width, platformArray.get(0).height);
 		 rects.rect(platformArray.get(1).x, platformArray.get(1).y, platformArray.get(1).width, platformArray.get(1).height);
-         rects.rect(enemy1Array.get(0).x, enemy1Array.get(0).y, enemy1Array.get(0).width, enemy1Array.get(0).height);
+         if(enemy.enemyRender)
+		 {
+			 rects.rect(enemy1Array.get(0).x, enemy1Array.get(0).y, enemy1Array.get(0).width, enemy1Array.get(0).height);
+		 }
          rects.end();
 
 	}

@@ -14,7 +14,8 @@ public class Enemy {
      private float leftEdge;
      private float rightEdge;
      private Rectangle rectangle;
-
+     public boolean enemyRender = true;
+     //a reminder to myself that this should start true
 
      public Enemy(float startX, float startY, float width, float height, float eSpeedX, float leftEdge, float rightEdge)
      {
