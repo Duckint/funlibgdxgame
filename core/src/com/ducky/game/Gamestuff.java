@@ -32,7 +32,7 @@ public class Gamestuff extends ApplicationAdapter {
 
     public void platformCollision()
 	{
-		for(Rectangle platCollide : platformArray )
+		for(Rectangle platCollide : platformArray)
 		{
 			if(objMPlayer.player.overlaps(platCollide))
 			{
@@ -43,20 +43,22 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.isSlamming = false;
 			}
 		}
-
-
 	}
 	public void enemyCollision()
 	{
         for (Rectangle enemyCollide1 : enemy1Array)
 		{
-
 			float enemyTop = enemyCollide1.y + enemyCollide1.height;
 
-			if(objMPlayer.playerPos.y <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
 			{
                enemy.enemyRender = false;
 			}
+			/*if(objMPlayer.playerPos.y <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			{
+				objMPlayer.playerPos.x = 140;
+				objMPlayer.playerPos.y = 120;
+			}*/
 		}
 	}
 	public void input()
@@ -65,6 +67,8 @@ public class Gamestuff extends ApplicationAdapter {
 		 {
              objMPlayer.playerPos.x = 140;
 			 objMPlayer.playerPos.y = 120;
+
+			 enemy.enemyRender = true;
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
@@ -124,7 +128,6 @@ public class Gamestuff extends ApplicationAdapter {
 		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
 		 platformCollision();
-
 
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();

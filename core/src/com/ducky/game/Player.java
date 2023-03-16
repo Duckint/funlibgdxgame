@@ -11,7 +11,7 @@ public class Player {
     public float currentFallSpeed = 1.0f;
     public boolean isPlayerJumping;
     public boolean canJump = false;
-    public float jumpPowa = 1.3f;
+    public float jumpPowa = 1.5f;
     //public float jumpDuration; may be reused later, but atm I have no need for it
     public boolean canSlam = false;
     public boolean isSlamming = false;
