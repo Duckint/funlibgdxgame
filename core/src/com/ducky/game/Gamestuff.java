@@ -50,7 +50,7 @@ public class Gamestuff extends ApplicationAdapter {
 		{
 			float enemyTop = enemyCollide1.y + enemyCollide1.height;
 
-			if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
 			{
                enemy.enemyRender = false;
 			}
