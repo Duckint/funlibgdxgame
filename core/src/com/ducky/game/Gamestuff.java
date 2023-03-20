@@ -54,11 +54,11 @@ public class Gamestuff extends ApplicationAdapter {
 			{
                enemy.enemyRender = false;
 			}
-			/*if(objMPlayer.playerPos.y <= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && enemy.enemyRender)
 			{
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 120;
-			}*/
+			}
 		}
 	}
 	public void input()
