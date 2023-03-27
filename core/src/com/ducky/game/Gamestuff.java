@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
 
-	  Enemy[] enemies = new Enemy[5];
+
       float speedX = 90;
 	  long startTime;
 	  long elapsedTime;
@@ -21,13 +21,15 @@ public class Gamestuff extends ApplicationAdapter {
 	  Player objMPlayer = new Player();
 
 
-
 	  ShapeRenderer rects;
 	  private ArrayList<Rectangle> platformArray;
 	  private ArrayList<Rectangle> enemy1Array;
 	  private ArrayList<Rectangle> wallArray;
+	  private ArrayList<Enemy> enemies;
 	  Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 	  Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+
+	  Enemy objen = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
 
     public void platformCollision()
@@ -52,9 +54,9 @@ public class Gamestuff extends ApplicationAdapter {
 
 			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
 			{
-               enemies[1].enemyRender = false;
+               objen.enemyRender = false;
 			}
-			else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && enemies[1].enemyRender)
+			else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && objen.enemyRender  )
 			{
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 120;
@@ -68,7 +70,7 @@ public class Gamestuff extends ApplicationAdapter {
              objMPlayer.playerPos.x = 140;
 			 objMPlayer.playerPos.y = 120;
 
-			 enemies[1].enemyRender = true;
+			 objen.enemyRender = true;
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.A))
 		 {
@@ -101,6 +103,7 @@ public class Gamestuff extends ApplicationAdapter {
 		platformArray = new ArrayList<Rectangle>();
 		enemy1Array = new ArrayList<Rectangle>();
 		wallArray = new ArrayList<Rectangle>();
+		enemies = new ArrayList<Enemy>();
 
 
 	   objMPlayer.playerRender = new ShapeRenderer();
@@ -112,8 +115,10 @@ public class Gamestuff extends ApplicationAdapter {
 	   platformArray.add(rectangle1.getRectangle());
 	   platformArray.add(rectangle2.getRectangle());
 
-	   enemies[1] = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
-	   enemy1Array.add(enemies[1].getRectangle());
+
+
+	   enemy1Array.add(objen.getRectangle());
+	   //enemy1Array.add(enemies[2].getRectangle());
 
 	}
 	@Override
@@ -132,17 +137,21 @@ public class Gamestuff extends ApplicationAdapter {
 
 		 objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
-		 enemies[1].enemyType1();
+		 objen.enemyType1();
 		 enemyCollision();
 
 
 		 rects.begin(ShapeRenderer.ShapeType.Line);
 		 rects.rect(platformArray.get(0).x, platformArray.get(0).y, platformArray.get(0).width, platformArray.get(0).height);
 		 rects.rect(platformArray.get(1).x, platformArray.get(1).y, platformArray.get(1).width, platformArray.get(1).height);
-         if(enemies[1].enemyRender)
+         if(objen.enemyRender)
 		 {
 			 rects.rect(enemy1Array.get(0).x, enemy1Array.get(0).y, enemy1Array.get(0).width, enemy1Array.get(0).height);
 		 }
+		 /*if()
+		 {
+			 rects.rect(enemy1Array.get(1).x, enemy1Array.get(1).y, enemy1Array.get(1).width, enemy1Array.get(1).height);
+		 }*/
          rects.end();
 
 	}
