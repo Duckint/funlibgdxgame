@@ -1,6 +1,7 @@
 package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,10 +16,12 @@ public class Gamestuff extends ApplicationAdapter {
 
 
       float speedX = 90;
-	  long startTime;
-	  long elapsedTime;
+	  //long startTime;
+	  //long elapsedTime;
 
 	  Player objMPlayer = new Player();
+
+	  OrthographicCamera playercam;
 
 
 	  ShapeRenderer rects;
@@ -109,7 +112,7 @@ public class Gamestuff extends ApplicationAdapter {
 	   objMPlayer.playerRender = new ShapeRenderer();
 	   rects = new ShapeRenderer();
 
-	   startTime = TimeUtils.nanoTime();
+	   //startTime = TimeUtils.nanoTime();
 
 
 	   platformArray.add(rectangle1.getRectangle());
@@ -125,7 +128,7 @@ public class Gamestuff extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
 
-		 elapsedTime = System.nanoTime() - startTime;
+		 //elapsedTime = System.nanoTime() - startTime;
 		 objMPlayer.playerdraw();
 		 input();
 
