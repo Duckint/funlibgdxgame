@@ -10,17 +10,21 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
 import static com.badlogic.gdx.Gdx.graphics;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
 import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
 
 
       float speedX = 90;
+	  float multiplier = 0.5f;
 	  //long startTime;
 	  //long elapsedTime;
 
 	  Player objMPlayer = new Player();
-
+      private Viewport viewport;
 	  OrthographicCamera playercam;
 
 
@@ -113,6 +117,12 @@ public class Gamestuff extends ApplicationAdapter {
 	   rects = new ShapeRenderer();
 
 	   //startTime = TimeUtils.nanoTime();
+       playercam = new OrthographicCamera();
+	   playercam.setToOrtho(false, graphics.getWidth(), graphics.getHeight());
+       viewport = new FitViewport(graphics.getWidth(), graphics.getHeight());
+	   viewport.setCamera(playercam);
+	   
+       viewport.apply();
 
 
 	   platformArray.add(rectangle1.getRectangle());
@@ -129,6 +139,9 @@ public class Gamestuff extends ApplicationAdapter {
 		ScreenUtils.clear(1, 0, 1, 1);
 
 		 //elapsedTime = System.nanoTime() - startTime;
+		 playercam.position.set(objMPlayer.playerPos.x + objMPlayer.player.width * multiplier, objMPlayer.playerPos.y + objMPlayer.player.height * multiplier, 0);
+		 rects.setProjectionMatrix(playercam.combined);
+
 		 objMPlayer.playerdraw();
 		 input();
 
