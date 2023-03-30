@@ -36,10 +36,10 @@ public class Gamestuff extends ApplicationAdapter {
 	private ArrayList<Rectangle> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
 	private ArrayList<Enemy> enemies;
-	Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
-	Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+	Platforms rectangle1;
+	Platforms rectangle2;
 
-	Enemy objen = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
+	Enemy objen = new Enemy(500.0f, 120.0f, 32.0f, 48.0f, 30.0f, 450.0f, 550.0f);
 
 	int viewportWidth;
 	int viewportHeight;
@@ -109,6 +109,10 @@ public class Gamestuff extends ApplicationAdapter {
 	}
     @Override
 	public void create () {
+
+		rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
+		rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+
 		objMPlayer.playerVelocity = new Vector2(0, 0);
         viewportWidth = graphics.getWidth();
 		viewportHeight = graphics.getHeight();
