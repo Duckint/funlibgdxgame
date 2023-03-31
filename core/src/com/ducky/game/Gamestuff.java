@@ -22,6 +22,7 @@ public class Gamestuff extends ApplicationAdapter {
 	  Player objMPlayer = new Player();
 
 	  OrthographicCamera playercam;
+	  float viewportWidth, viewportHeight;
 
 
 	  ShapeRenderer rects;
@@ -82,6 +83,7 @@ public class Gamestuff extends ApplicationAdapter {
 		 if(Gdx.input.isKeyPressed(Keys.D))
 		 {
 			 objMPlayer.playerPos.x += speedX * graphics.getDeltaTime();
+			 //playercam.translate(speedX * graphics.getDeltaTime(), 0);
 		 }
 		 if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump)
 		 {
@@ -100,6 +102,12 @@ public class Gamestuff extends ApplicationAdapter {
     @Override
 	public void create ()
 	{
+		viewportWidth = 300;
+		viewportHeight = 300;
+		//playercam = new OrthographicCamera(viewportWidth, viewportHeight * (graphics.getHeight() / graphics.getWidth()));
+		//.position.set(playercam.viewportWidth / 2f, playercam.viewportWidth / 2f, 0);
+		//playercam.update();
+
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
@@ -109,24 +117,27 @@ public class Gamestuff extends ApplicationAdapter {
 		enemies = new ArrayList<Enemy>();
 
 
-	   objMPlayer.playerRender = new ShapeRenderer();
-	   rects = new ShapeRenderer();
+	    objMPlayer.playerRender = new ShapeRenderer();
+	    rects = new ShapeRenderer();
 
 	   //startTime = TimeUtils.nanoTime();
 
 
-	   platformArray.add(rectangle1.getRectangle());
-	   platformArray.add(rectangle2.getRectangle());
+	    platformArray.add(rectangle1.getRectangle());
+	    platformArray.add(rectangle2.getRectangle());
 
 
 
-	   enemy1Array.add(objen.getRectangle());
+	    enemy1Array.add(objen.getRectangle());
 	   //enemy1Array.add(enemies[2].getRectangle());
 
 	}
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 1, 1);
+         //playercam.update();
+		 //rects.setProjectionMatrix(playercam.combined);
+
+		 ScreenUtils.clear(0, 0, 0.2f, 1);
 
 		 //elapsedTime = System.nanoTime() - startTime;
 		 objMPlayer.playerdraw();
