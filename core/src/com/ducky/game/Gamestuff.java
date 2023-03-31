@@ -2,12 +2,15 @@ package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
+
+import static com.badlogic.gdx.Gdx.gl20;
 import static com.badlogic.gdx.Gdx.graphics;
 import com.badlogic.gdx.utils.TimeUtils;
 import java.util.ArrayList;
@@ -21,7 +24,8 @@ public class Gamestuff extends ApplicationAdapter {
 
 	  Player objMPlayer = new Player();
 
-	  OrthographicCamera playercam;
+	  private OrthographicCamera playercam;
+
 
 
 	  ShapeRenderer rects;
@@ -96,10 +100,15 @@ public class Gamestuff extends ApplicationAdapter {
 			  objMPlayer.isSlamming = true;
 			  objMPlayer.canSlam = false;
 		 }
+
+		 playercam.position.x = MathUtils.clamp(playercam.position.x, playercam.viewportWidth / 2f, 100 - playercam.viewportWidth / 2f);
+		 playercam.position.y = MathUtils.clamp(playercam.position.y, playercam.viewportHeight / 2f, 100 - playercam.viewportHeight / 2f);
 	 }
     @Override
 	public void create ()
 	{
+		float width = graphics.getWidth();
+		float height = graphics.getHeight();
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
@@ -108,6 +117,10 @@ public class Gamestuff extends ApplicationAdapter {
 		wallArray = new ArrayList<Rectangle>();
 		enemies = new ArrayList<Enemy>();
 
+	    playercam = new OrthographicCamera(30, 30 * (height / width));
+
+	    playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
+	    playercam.update();
 
 	   objMPlayer.playerRender = new ShapeRenderer();
 	   rects = new ShapeRenderer();
@@ -126,11 +139,14 @@ public class Gamestuff extends ApplicationAdapter {
 	}
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 1, 1);
+		 input();
+		 playercam.update();
+		 rects.setProjectionMatrix(playercam.combined);
 
+		 Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
 		 //elapsedTime = System.nanoTime() - startTime;
 		 objMPlayer.playerdraw();
-		 input();
+
 
 		 objMPlayer.playerPos.add(objMPlayer.playerVelocity);
 		 objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
