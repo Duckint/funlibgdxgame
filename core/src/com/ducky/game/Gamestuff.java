@@ -89,10 +89,11 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			objMPlayer.playerPos.x -= speedX * graphics.getDeltaTime();
-
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			objMPlayer.playerPos.x += speedX * graphics.getDeltaTime();
+			objMPlayer.player.x = objMPlayer.playerPos.x - playercam.position.x + viewportWidth / 2;
+			objMPlayer.player.y = objMPlayer.playerPos.y - playercam.position.y + viewportHeight / 2;
 		}
 		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
 			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
@@ -127,12 +128,12 @@ public class Gamestuff extends ApplicationAdapter {
 
 		//startTime = TimeUtils.nanoTime();
 		//WHY CAN'T THIS STUPID CAMERA WORK?!?!
-        playercam = new OrthographicCamera();
+       playercam = new OrthographicCamera();
 		playercam.setToOrtho(false, graphics.getWidth() / 2, graphics.getHeight() / 2);
-        viewport = new FitViewport(graphics.getWidth(), graphics.getHeight(), playercam);
+       viewport = new FitViewport(graphics.getWidth(), graphics.getHeight());
 		viewport.setCamera(playercam);
 
-        viewport.apply();
+       viewport.apply();
 
 
 		platformArray.add(rectangle1.getRectangle());
@@ -149,11 +150,11 @@ public class Gamestuff extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 0, 1, 1);
 
-		playercam.position.x = objMPlayer.playerPos.x;
-		playercam.position.y = objMPlayer.playerPos.y;
-		playercam.update();
 
-		//elapsedTime = System.nanoTime() - startTime;
+
+
+
+				//elapsedTime = System.nanoTime() - startTime;
 		playercam.position.x = MathUtils.clamp(objMPlayer.playerPos.x + objMPlayer.player.width / 2, viewportWidth / 2, viewportWidth * 2 - viewportWidth / 2);
 		playercam.position.y = MathUtils.clamp(objMPlayer.playerPos.y + objMPlayer.player.height / 2, viewportHeight / 2, viewportHeight * 2 - viewportHeight / 2);
 		playercam.update();
