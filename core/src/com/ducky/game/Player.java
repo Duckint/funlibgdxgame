@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
     ShapeRenderer playerRender;
     public Vector2 playerVelocity;
-    public Vector2 playerPos = new Vector2(160, 120);
+    public Vector2 playerPos = new Vector2(140, 120);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
     public float currentFallSpeed = 1.0f;
     public boolean isPlayerJumping;
