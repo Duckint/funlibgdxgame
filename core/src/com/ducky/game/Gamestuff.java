@@ -127,7 +127,6 @@ public class Gamestuff extends ApplicationAdapter {
 		rects = new ShapeRenderer();
 
 		//startTime = TimeUtils.nanoTime();
-		//WHY CAN'T THIS STUPID CAMERA WORK?!?!
        playercam = new OrthographicCamera();
 		playercam.setToOrtho(false, graphics.getWidth() / 2, graphics.getHeight() / 2);
        viewport = new FitViewport(graphics.getWidth(), graphics.getHeight());
