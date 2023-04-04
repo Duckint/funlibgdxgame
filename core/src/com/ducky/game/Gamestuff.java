@@ -15,22 +15,14 @@ import static com.badlogic.gdx.Gdx.graphics;
 import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
-
-
-      float speedX = 90;
-	//long startTime;
-	//long elapsedTime;
-
+	float speedX = 90;
 	Player objMPlayer = new Player();
-
 	private OrthographicCamera playercam;
-
 
 	ShapeRenderer rects;
 	private ArrayList<Rectangle> platformArray;
 	private ArrayList<Rectangle> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
-	private ArrayList<Enemy> enemies;
 	Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 	Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
 
@@ -64,7 +56,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	public void input() {
 		if(Gdx.input.isKeyPressed(Keys.R)) {
-             objMPlayer.playerPos.x = 140;
+			objMPlayer.playerPos.x = 140;
 			objMPlayer.playerPos.y = 120;
 
 			objen.enemyRender = true;
@@ -103,9 +95,9 @@ public class Gamestuff extends ApplicationAdapter {
 		platformArray = new ArrayList<Rectangle>();
 		enemy1Array = new ArrayList<Rectangle>();
 		wallArray = new ArrayList<Rectangle>();
-		enemies = new ArrayList<Enemy>();
 
-		playercam = new OrthographicCamera(800, 790 * (height / width));
+
+		playercam = new OrthographicCamera(800, 800 * (height / width));
 
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
@@ -113,16 +105,10 @@ public class Gamestuff extends ApplicationAdapter {
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 
-		//startTime = TimeUtils.nanoTime();
-
-
 		platformArray.add(rectangle1.getRectangle());
 		platformArray.add(rectangle2.getRectangle());
 
-
 		enemy1Array.add(objen.getRectangle());
-		//enemy1Array.add(enemies[2].getRectangle());
-
 	}
 
 	@Override
@@ -132,7 +118,6 @@ public class Gamestuff extends ApplicationAdapter {
 		rects.setProjectionMatrix(playercam.combined);
 
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
-		//elapsedTime = System.nanoTime() - startTime;
 		objMPlayer.playerdraw();
 
 
@@ -161,8 +146,6 @@ public class Gamestuff extends ApplicationAdapter {
 			 rects.rect(enemy1Array.get(1).x, enemy1Array.get(1).y, enemy1Array.get(1).width, enemy1Array.get(1).height);
 		 }*/
          rects.end();
-
-
 	}
 
 	@Override
