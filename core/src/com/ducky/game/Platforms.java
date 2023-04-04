@@ -9,10 +9,10 @@ public class Platforms
 
     private Rectangle rectangle;
 
+
     private Platforms(Rectangle rectangle) {
         this.rectangle = rectangle;
     }
-
     public Rectangle getRectangle() {
         return rectangle;
     }
