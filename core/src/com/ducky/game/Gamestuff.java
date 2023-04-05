@@ -26,7 +26,7 @@ public class Gamestuff extends ApplicationAdapter {
 	Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 	Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
 
-	Enemy objen = new Enemy(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
+	Enemies objen = new Enemies(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
 
     public void platformCollision() {
@@ -92,9 +92,9 @@ public class Gamestuff extends ApplicationAdapter {
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
-		platformArray = new ArrayList<Rectangle>();
-		enemy1Array = new ArrayList<Rectangle>();
-		wallArray = new ArrayList<Rectangle>();
+		platformArray = new ArrayList<>();
+		enemy1Array = new ArrayList<>();
+		wallArray = new ArrayList<>();
 
 
 		playercam = new OrthographicCamera(800, 800 * (height / width));
@@ -134,7 +134,6 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 		rects.begin(ShapeRenderer.ShapeType.Line);
-
 		for(Rectangle platform : platformArray) {
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}

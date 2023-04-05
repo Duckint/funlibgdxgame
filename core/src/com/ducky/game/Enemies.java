@@ -3,7 +3,7 @@ package com.ducky.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Enemy {
+public class Enemies {
 
 
      private float eSpeedX = 90.0f;
@@ -17,7 +17,7 @@ public class Enemy {
      public boolean enemyRender = true;
      //a reminder to myself that this should start true
 
-     public Enemy(float startX, float startY, float width, float height, float eSpeedX, float leftEdge, float rightEdge)
+     public Enemies(float startX, float startY, float width, float height, float eSpeedX, float leftEdge, float rightEdge)
      {
 
          rectangle = new Rectangle (startX, startY, width, height);
