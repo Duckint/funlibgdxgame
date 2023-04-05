@@ -14,6 +14,7 @@ public class Player {
     public float jumpPowa = 1.5f;
     public boolean canSlam = false;
     public boolean isSlamming = false;
+    public float speedX = 90;
     public void playerdraw()
     {
         playerRender.begin(ShapeRenderer.ShapeType.Line);

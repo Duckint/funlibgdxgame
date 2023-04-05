@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Enemies {
 
-
      private float eSpeedX = 90.0f;
      private float startX;
      private float startY;

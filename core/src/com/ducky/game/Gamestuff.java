@@ -15,8 +15,9 @@ import static com.badlogic.gdx.Gdx.graphics;
 import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
-	float speedX = 90;
+
 	Player objMPlayer = new Player();
+
 	private OrthographicCamera playercam;
 
 	ShapeRenderer rects;
@@ -62,10 +63,10 @@ public class Gamestuff extends ApplicationAdapter {
 			objen.enemyRender = true;
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
-			objMPlayer.playerPos.x -= speedX * graphics.getDeltaTime();
+			objMPlayer.playerPos.x -= objMPlayer.speedX * graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
-			objMPlayer.playerPos.x += speedX * graphics.getDeltaTime();
+			objMPlayer.playerPos.x += objMPlayer.speedX * graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
 			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
@@ -86,6 +87,8 @@ public class Gamestuff extends ApplicationAdapter {
 	public void create () {
 
 		graphics.setWindowedMode(800, 600);
+
+		objMPlayer.speedX = 90.0f;
 
 		float width = graphics.getWidth();
 		float height = graphics.getHeight();
@@ -126,7 +129,6 @@ public class Gamestuff extends ApplicationAdapter {
 
 		platformCollision();
 
-
 		objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 		objen.enemyType1();
@@ -137,17 +139,17 @@ public class Gamestuff extends ApplicationAdapter {
 		for(Rectangle platform : platformArray) {
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}
-         if(objen.enemyRender) {
-			 rects.rect(enemy1Array.get(0).x, enemy1Array.get(0).y, enemy1Array.get(0).width, enemy1Array.get(0).height);
-		 }
-         /*if()
-		 {
-			 rects.rect(enemy1Array.get(1).x, enemy1Array.get(1).y, enemy1Array.get(1).width, enemy1Array.get(1).height);
-		 }*/
+		for(Rectangle enemies : enemy1Array) {
+			if(objen.enemyRender) {
+				rects.rect(enemies.x, enemies.y, enemies.width, enemies.height);
+			}
+		}
          rects.end();
 	}
 
 	@Override
 	public void dispose () {
+		objMPlayer.playerRender.dispose();
+		rects.dispose();
 	}
 }
