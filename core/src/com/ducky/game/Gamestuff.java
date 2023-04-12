@@ -90,9 +90,7 @@ public class Gamestuff extends ApplicationAdapter {
 		graphics.setWindowedMode(800, 600);
 
 		objMPlayer.speedX = 90.0f;
-
-		float width = graphics.getWidth();
-		float height = graphics.getHeight();
+		
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
@@ -100,8 +98,8 @@ public class Gamestuff extends ApplicationAdapter {
 		enemy1Array = new ArrayList<>();
 		wallArray = new ArrayList<>();
 
-        //why does viewportHeight have to be 800?????????????????????
-		playercam = new OrthographicCamera(800, 800 * (height / width));
+
+		playercam = new OrthographicCamera(800, 600);
 
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
