@@ -9,12 +9,13 @@ public class Player {
     public Vector2 playerPos = new Vector2(140, 120);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
     public float currentFallSpeed = 1.0f;
+    public boolean canPlayerRun;
     public boolean isPlayerJumping;
     public boolean canJump = false;
     public float jumpPowa = 1.5f;
     public boolean canSlam = false;
     public boolean isSlamming = false;
-    public float speedX = 90;
+    public float speedX;
     public void playerdraw()
     {
         playerRender.begin(ShapeRenderer.ShapeType.Line);

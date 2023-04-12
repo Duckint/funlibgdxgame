@@ -63,10 +63,11 @@ public class Gamestuff extends ApplicationAdapter {
 			objen.enemyRender = true;
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
-			objMPlayer.playerPos.x -= objMPlayer.speedX * graphics.getDeltaTime();
+			objMPlayer.playerVelocity.x = -objMPlayer.speedX * graphics.getDeltaTime();
 		}
+		else{objMPlayer.playerVelocity.x = 0;}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
-			objMPlayer.playerPos.x += objMPlayer.speedX * graphics.getDeltaTime();
+			objMPlayer.playerVelocity.x = objMPlayer.speedX * graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
 			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
@@ -99,7 +100,7 @@ public class Gamestuff extends ApplicationAdapter {
 		enemy1Array = new ArrayList<>();
 		wallArray = new ArrayList<>();
 
-
+        //why does viewportHeight have to be 800?????????????????????
 		playercam = new OrthographicCamera(800, 800 * (height / width));
 
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);

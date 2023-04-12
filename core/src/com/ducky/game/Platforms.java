@@ -24,5 +24,4 @@ public class Platforms
         Rectangle rectangle = new Rectangle(x, y, width, height);
         return new Platforms(rectangle);
     }
-
 }

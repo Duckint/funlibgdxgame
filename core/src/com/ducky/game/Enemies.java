@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Enemies {
 
-     private float eSpeedX = 90.0f;
+     private float eSpeedX;
      private float startX;
      private float startY;
      private float width;
@@ -50,8 +50,8 @@ public class Enemies {
     {
         return rectangle;
     }
-    public Rectangle enemyType2()
+    /**public Rectangle enemyType2()
     {
         return null;
-    }
+    }**/
 }
