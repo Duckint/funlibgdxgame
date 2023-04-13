@@ -81,8 +81,6 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.canSlam = false;
 		}
 
-		playercam.position.x = MathUtils.clamp(playercam.position.x, playercam.viewportWidth / 2f, 100 - playercam.viewportWidth / 2f);
-		playercam.position.y = MathUtils.clamp(playercam.position.y, playercam.viewportHeight / 2f, 100 - playercam.viewportHeight / 2f);
 	}
     @Override
 	public void create () {
