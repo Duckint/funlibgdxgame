@@ -35,6 +35,7 @@ public class Gamestuff extends ApplicationAdapter {
 			if(objMPlayer.player.overlaps(platCollide)) {
 				objMPlayer.playerVelocity.y = 0;
 				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
+				objMPlayer.canPlayerRun = true;
 				objMPlayer.canJump = true;
 				objMPlayer.canSlam = false;
 				objMPlayer.isSlamming = false;
@@ -74,13 +75,21 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.canJump = false;
 			objMPlayer.isPlayerJumping = true;
 			objMPlayer.canSlam = true;
+			objMPlayer.canPlayerRun = false;
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping) {
 			objMPlayer.playerVelocity.y = -10.0f;
 			objMPlayer.isSlamming = true;
 			objMPlayer.canSlam = false;
 		}
-
+        if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun)
+		{
+			objMPlayer.speedX = 180.0f;
+		}
+		else
+		{
+			objMPlayer.speedX = 90.0f;
+		}
 	}
     @Override
 	public void create () {
@@ -113,6 +122,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+
 		input();
 		playercam.update();
 		rects.setProjectionMatrix(playercam.combined);

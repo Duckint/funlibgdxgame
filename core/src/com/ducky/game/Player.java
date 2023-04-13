@@ -10,7 +10,7 @@ public class Player {
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
     public float currentFallSpeed = 1.0f;
     public boolean canPlayerRun;
-    public boolean isPlayerJumping;
+    public boolean isPlayerJumping = true;
     public boolean canJump = false;
     public float jumpPowa = 1.5f;
     public boolean canSlam = false;
