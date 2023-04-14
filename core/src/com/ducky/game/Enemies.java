@@ -50,8 +50,8 @@ public class Enemies {
     {
         return rectangle;
     }
-    /**public Rectangle enemyType2()
+    /*public Rectangle enemyType2()
     {
         return null;
-    }**/
+    }*/
 }

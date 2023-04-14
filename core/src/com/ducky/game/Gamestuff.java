@@ -2,16 +2,13 @@ package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-//import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
 import static com.badlogic.gdx.Gdx.gl20;
 import static com.badlogic.gdx.Gdx.graphics;
-//import com.badlogic.gdx.utils.TimeUtils;
 import java.util.ArrayList;
 
 public class Gamestuff extends ApplicationAdapter {
@@ -60,44 +57,58 @@ public class Gamestuff extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Keys.R)) {
 			objMPlayer.playerPos.x = 140;
 			objMPlayer.playerPos.y = 120;
+			objMPlayer.playerVelocity.y = 0;
+			objMPlayer.playerVelocity.x = 0;
 
 			objen.enemyRender = true;
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
-			objMPlayer.playerVelocity.x = -objMPlayer.speedX * graphics.getDeltaTime();
+			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
-		else{objMPlayer.playerVelocity.x = 0;}
+
 		if(Gdx.input.isKeyPressed(Keys.D)) {
-			objMPlayer.playerVelocity.x = objMPlayer.speedX * graphics.getDeltaTime();
+			objMPlayer.playerVelocity.x += objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
-		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
+
+		if (!Gdx.input.isKeyPressed(Keys.A) && !Gdx.input.isKeyPressed(Keys.D)) {
+			if (objMPlayer.playerVelocity.x > 0) {
+				objMPlayer.playerVelocity.x -= objMPlayer.decelerationX * graphics.getDeltaTime();
+				if (objMPlayer.playerVelocity.x < 0) {
+					objMPlayer.playerVelocity.x = 0;
+				}
+			} else if (objMPlayer.playerVelocity.x < 0) {
+				objMPlayer.playerVelocity.x += objMPlayer.decelerationX * graphics.getDeltaTime();
+				if(objMPlayer.playerVelocity.x > 0) {
+					objMPlayer.playerVelocity.x = 0;
+				}
+			}
+		}
+
+		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump)
+		{
 			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
 			objMPlayer.canJump = false;
 			objMPlayer.isPlayerJumping = true;
 			objMPlayer.canSlam = true;
 			objMPlayer.canPlayerRun = false;
 		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping) {
-			objMPlayer.playerVelocity.y = -10.0f;
+		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping)
+		{
+			objMPlayer.playerVelocity.y = -objMPlayer.jumpPowa * objMPlayer.slamPowa;
 			objMPlayer.isSlamming = true;
 			objMPlayer.canSlam = false;
 		}
-        if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun)
+        /*if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun)
 		{
-			objMPlayer.speedX = 180.0f;
-		}
-		else
-		{
-			objMPlayer.speedX = 90.0f;
-		}
+			objMPlayer.playerVelocity.x = objMPlayer.playerVelocity.x * 1.1f;
+		}*/
 	}
     @Override
 	public void create () {
 
 		graphics.setWindowedMode(800, 600);
 
-		objMPlayer.speedX = 90.0f;
-		
+
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
@@ -130,11 +141,11 @@ public class Gamestuff extends ApplicationAdapter {
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
 		objMPlayer.playerdraw();
 
-
-		objMPlayer.playerPos.add(objMPlayer.playerVelocity);
+        objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
 		objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
 		platformCollision();
+
 
 		objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
