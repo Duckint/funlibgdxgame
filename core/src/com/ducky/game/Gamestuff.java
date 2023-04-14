@@ -27,9 +27,12 @@ public class Gamestuff extends ApplicationAdapter {
 	Enemies objen = new Enemies(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
 
-    public void platformCollision() {
-		for(Rectangle platCollide : platformArray) {
-			if(objMPlayer.player.overlaps(platCollide)) {
+    public void platformCollision()
+	{
+		for(Rectangle platCollide : platformArray)
+		{
+			if(objMPlayer.player.overlaps(platCollide))
+			{
 				objMPlayer.playerVelocity.y = 0;
 				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
 				objMPlayer.canPlayerRun = true;
@@ -62,11 +65,13 @@ public class Gamestuff extends ApplicationAdapter {
 
 			objen.enemyRender = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.A)) {
+		if(Gdx.input.isKeyPressed(Keys.A))
+		{
 			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
 
-		if(Gdx.input.isKeyPressed(Keys.D)) {
+		if(Gdx.input.isKeyPressed(Keys.D))
+		{
 			objMPlayer.playerVelocity.x += objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
 
@@ -94,7 +99,8 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping)
 		{
-			objMPlayer.playerVelocity.y = -objMPlayer.jumpPowa * objMPlayer.slamPowa;
+			objMPlayer.playerVelocity.y = -objMPlayer.currentFallSpeed * objMPlayer.slamPowa;
+			//currentFallSpeed * slamPowa = how hard the player slams
 			objMPlayer.isSlamming = true;
 			objMPlayer.canSlam = false;
 		}
