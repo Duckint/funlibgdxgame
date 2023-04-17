@@ -2,6 +2,8 @@ package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -18,21 +20,20 @@ public class Gamestuff extends ApplicationAdapter {
 	private OrthographicCamera playercam;
 
 	ShapeRenderer rects;
+	//SpriteBatch batch = new SpriteBatch();
+	//BitmapFont font = new BitmapFont();
+	//String text = "This is text";
 	private ArrayList<Rectangle> platformArray;
 	private ArrayList<Rectangle> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
-	Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
-	Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+
 
 	Enemies objen = new Enemies(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
 
-    public void platformCollision()
-	{
-		for(Rectangle platCollide : platformArray)
-		{
-			if(objMPlayer.player.overlaps(platCollide))
-			{
+    public void platformCollision() {
+		for(Rectangle platCollide : platformArray) {
+			if(objMPlayer.player.overlaps(platCollide)) {
 				objMPlayer.playerVelocity.y = 0;
 				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
 				objMPlayer.canPlayerRun = true;
@@ -51,33 +52,28 @@ public class Gamestuff extends ApplicationAdapter {
                objen.enemyRender = false;
 			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && objen.enemyRender  ) {
 				objMPlayer.playerPos.x = 140;
-				objMPlayer.playerPos.y = 120;
+				objMPlayer.playerPos.y = 105;
 			}
 		}
 	}
 
 	public void input() {
-		if(Gdx.input.isKeyPressed(Keys.R))
-		{
+		if(Gdx.input.isKeyPressed(Keys.R)) {
 			objMPlayer.playerPos.x = 140;
-			objMPlayer.playerPos.y = 120;
+			objMPlayer.playerPos.y = 105;
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerVelocity.x = 0;
 
 			objen.enemyRender = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.A))
-		{
-			if(objMPlayer.playerVelocity.x >= 0)
-			{
+		if(Gdx.input.isKeyPressed(Keys.A)) {
+			if(objMPlayer.playerVelocity.x >= 0) {
 				objMPlayer.playerVelocity.x = -objMPlayer.accelerationX * graphics.getDeltaTime();
 			}
 			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
-		if(Gdx.input.isKeyPressed(Keys.D))
-		{
-			if(objMPlayer.playerVelocity.x <= 0)
-			{
+		if(Gdx.input.isKeyPressed(Keys.D)) {
+			if(objMPlayer.playerVelocity.x <= 0) {
 				objMPlayer.playerVelocity.x = objMPlayer.accelerationX * graphics.getDeltaTime();
 			}
 			objMPlayer.playerVelocity.x += objMPlayer.accelerationX * graphics.getDeltaTime();
@@ -97,30 +93,31 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 		}
 
-		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump)
-		{
+		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
 			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
 			objMPlayer.canJump = false;
 			objMPlayer.isPlayerJumping = true;
 			objMPlayer.canSlam = true;
 			objMPlayer.canPlayerRun = false;
 		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping)
-		{
+		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping) {
 			objMPlayer.playerVelocity.y = -objMPlayer.currentFallSpeed * objMPlayer.slamPowa;
 			//currentFallSpeed * slamPowa = how hard the player slams
+
 			objMPlayer.isSlamming = true;
 			objMPlayer.canSlam = false;
 		}
-        /*if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun)
-		{
-			objMPlayer.playerVelocity.x = objMPlayer.playerVelocity.x * 1.1f;
-		}*/
+        if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun) {
+           objMPlayer.playerVelocity.x = objMPlayer.playerVelocity.x * objMPlayer.sprintPowa;
+		}
 	}
     @Override
 	public void create () {
 
-		graphics.setWindowedMode(800, 600);
+
+		graphics.setWindowedMode(1200, 800);
+		Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
+		Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
 
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
@@ -131,7 +128,7 @@ public class Gamestuff extends ApplicationAdapter {
 		wallArray = new ArrayList<>();
 
 
-		playercam = new OrthographicCamera(800, 600);
+		playercam = new OrthographicCamera(1200, 800);
 
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
@@ -153,6 +150,8 @@ public class Gamestuff extends ApplicationAdapter {
 		rects.setProjectionMatrix(playercam.combined);
 
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
+		/*batch.begin();
+		font.draw(batch, text, 100, 100);*/
 		objMPlayer.playerdraw();
 
         objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
@@ -176,6 +175,7 @@ public class Gamestuff extends ApplicationAdapter {
 				rects.rect(enemies.x, enemies.y, enemies.width, enemies.height);
 			}
 		}
+		 batch.end();
          rects.end();
 	}
 
@@ -183,5 +183,6 @@ public class Gamestuff extends ApplicationAdapter {
 	public void dispose () {
 		objMPlayer.playerRender.dispose();
 		rects.dispose();
+		batch.dispose();
 	}
 }
