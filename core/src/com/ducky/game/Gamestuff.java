@@ -57,7 +57,8 @@ public class Gamestuff extends ApplicationAdapter {
 	}
 
 	public void input() {
-		if(Gdx.input.isKeyPressed(Keys.R)) {
+		if(Gdx.input.isKeyPressed(Keys.R))
+		{
 			objMPlayer.playerPos.x = 140;
 			objMPlayer.playerPos.y = 120;
 			objMPlayer.playerVelocity.y = 0;
@@ -67,11 +68,18 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 		if(Gdx.input.isKeyPressed(Keys.A))
 		{
+			if(objMPlayer.playerVelocity.x >= 0)
+			{
+				objMPlayer.playerVelocity.x = -objMPlayer.accelerationX * graphics.getDeltaTime();
+			}
 			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
-
 		if(Gdx.input.isKeyPressed(Keys.D))
 		{
+			if(objMPlayer.playerVelocity.x <= 0)
+			{
+				objMPlayer.playerVelocity.x = objMPlayer.accelerationX * graphics.getDeltaTime();
+			}
 			objMPlayer.playerVelocity.x += objMPlayer.accelerationX * graphics.getDeltaTime();
 		}
 

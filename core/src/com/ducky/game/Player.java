@@ -8,8 +8,9 @@ public class Player {
     public Vector2 playerVelocity;
     public Vector2 playerPos = new Vector2(140, 120);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
+    public float sprintPowa = 20.0f;
     public float currentFallSpeed = 50.0f;
-    public float slamPowa = 2.0f;
+    public float slamPowa = 5.0f;
     public boolean canPlayerRun;
     public boolean isPlayerJumping = true;
     public boolean canJump = false;
