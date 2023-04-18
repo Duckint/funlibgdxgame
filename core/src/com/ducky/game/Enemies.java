@@ -6,10 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 public class Enemies {
 
      private float eSpeedX;
-     private float startX;
-     private float startY;
-     private float width;
-     private float height;
      private float leftEdge;
      private float rightEdge;
      private Rectangle rectangle;
@@ -20,16 +16,11 @@ public class Enemies {
      {
 
          rectangle = new Rectangle (startX, startY, width, height);
-         this.startX = startX;
-         this.startY = startY;
-         this.width = width;
-         this.height = height;
          this.eSpeedX = eSpeedX;
          this.leftEdge = leftEdge;
          this.rightEdge = rightEdge;
 
      }
-
     public void enemyType1()
     {
         float delta = Gdx.graphics.getDeltaTime();
