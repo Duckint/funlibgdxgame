@@ -30,10 +30,23 @@ public class Gamestuff extends ApplicationAdapter {
 
 	Enemies objen = new Enemies(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
-
-    public void platformCollision() {
-		for(Rectangle platCollide : platformArray) {
-			if(objMPlayer.player.overlaps(platCollide)) {
+    public void wallCollision()
+	{
+		for(Rectangle wallCollide : wallArray)
+		{
+			if(objMPlayer.player.overlaps(wallCollide))
+			{
+				objMPlayer.playerVelocity.x = 0;
+				objMPlayer.playerPos.x = wallCollide.x + wallCollide.width;
+			}
+		}
+	}
+    public void platformCollision()
+	{
+		for(Rectangle platCollide : platformArray)
+		{
+			if(objMPlayer.player.overlaps(platCollide))
+			{
 				objMPlayer.playerVelocity.y = 0;
 				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
 				objMPlayer.canPlayerRun = true;
@@ -43,14 +56,18 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 		}
 	}
-
-	public void enemyCollision() {
-        for (Rectangle enemyCollide1 : enemy1Array) {
+	public void enemyCollision()
+	{
+        for (Rectangle enemyCollide1 : enemy1Array)
+		{
 			float enemyTop = enemyCollide1.y + enemyCollide1.height;
 
-			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1)) {
+			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1))
+			{
                objen.enemyRender = false;
-			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && objen.enemyRender  ) {
+			}
+			else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && objen.enemyRender)
+			{
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 105;
 			}
@@ -118,6 +135,7 @@ public class Gamestuff extends ApplicationAdapter {
 		graphics.setWindowedMode(1200, 800);
 		Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 		Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+		Platforms wall1 =  Platforms.createRectangle(80, 0, 20, 600);
 
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
@@ -138,6 +156,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 		platformArray.add(rectangle1.getRectangle());
 		platformArray.add(rectangle2.getRectangle());
+		wallArray.add(wall1.getRectangle());
 
 		enemy1Array.add(objen.getRectangle());
 	}
@@ -157,6 +176,7 @@ public class Gamestuff extends ApplicationAdapter {
         objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
 		objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
+		wallCollision();
 		platformCollision();
 
 
@@ -167,6 +187,9 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 		rects.begin(ShapeRenderer.ShapeType.Line);
+		for(Rectangle walls: wallArray) {
+			rects.rect(walls.x, walls.y, walls.width, walls.height);
+		}
 		for(Rectangle platform : platformArray) {
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}
@@ -175,7 +198,7 @@ public class Gamestuff extends ApplicationAdapter {
 				rects.rect(enemies.x, enemies.y, enemies.width, enemies.height);
 			}
 		}
-		 batch.end();
+		 //batch.end();
          rects.end();
 	}
 
@@ -183,6 +206,6 @@ public class Gamestuff extends ApplicationAdapter {
 	public void dispose () {
 		objMPlayer.playerRender.dispose();
 		rects.dispose();
-		batch.dispose();
+		//batch.dispose();
 	}
 }
