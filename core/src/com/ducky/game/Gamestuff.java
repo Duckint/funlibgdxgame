@@ -135,7 +135,7 @@ public class Gamestuff extends ApplicationAdapter {
 		graphics.setWindowedMode(1200, 800);
 		Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 		Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
-		Platforms wall1 =  Platforms.createRectangle(80, 0, 20, 600);
+		Platforms wall1 = Platforms.createRectangle(80, 80, 20, 600);
 
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
@@ -187,14 +187,18 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 		rects.begin(ShapeRenderer.ShapeType.Line);
-		for(Rectangle walls: wallArray) {
+		for(Rectangle walls: wallArray)
+		{
 			rects.rect(walls.x, walls.y, walls.width, walls.height);
 		}
-		for(Rectangle platform : platformArray) {
+		for(Rectangle platform : platformArray)
+		{
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}
-		for(Rectangle enemies : enemy1Array) {
-			if(objen.enemyRender) {
+		for(Rectangle enemies : enemy1Array)
+		{
+			if(objen.enemyRender)
+			{
 				rects.rect(enemies.x, enemies.y, enemies.width, enemies.height);
 			}
 		}
