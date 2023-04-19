@@ -7,6 +7,7 @@ public class Enemies {
 
      private float eSpeedX;
      private float leftEdge;
+     //these two edges determine the range of movement for the enemy before they turn around
      private float rightEdge;
      private Rectangle rectangle;
      public boolean enemyRender = true;

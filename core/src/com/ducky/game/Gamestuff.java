@@ -72,18 +72,18 @@ public class Gamestuff extends ApplicationAdapter {
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerVelocity.x = 0;
 			objMPlayer.player.height = 50;
+			objMPlayer.accelerationX = 75.0f;
 
 			objen.enemyRender = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == false)
-		{
+		if(Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == false && objMPlayer.canJump == true) {
 			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
 			objMPlayer.isCrouching = true;
-		}
-		else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == true)
-		{
+			objMPlayer.accelerationX = -0.5f;
+		} else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == true ) {
 			objMPlayer.player.height = objMPlayer.player.height * 2.5f;
 			objMPlayer.isCrouching = false;
+			objMPlayer.accelerationX = 75f;
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			if(objMPlayer.playerVelocity.x >= 0) {
