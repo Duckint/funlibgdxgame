@@ -1,17 +1,16 @@
 package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-//import com.badlogic.gdx.graphics.g2d.BitmapFont;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
-
-import javax.swing.border.EmptyBorder;
-
 import static com.badlogic.gdx.Gdx.gl20;
 import static com.badlogic.gdx.Gdx.graphics;
 import java.util.ArrayList;
@@ -24,9 +23,12 @@ public class Gamestuff extends ApplicationAdapter {
 	private OrthographicCamera playercam;
 
 	ShapeRenderer rects;
-	//SpriteBatch batch = new SpriteBatch();
-	//BitmapFont font = new BitmapFont();
-	//String text = "This is text";
+
+	SpriteBatch batch;
+	BitmapFont font;
+	private GlyphLayout layout;
+
+
 	private ArrayList<Rectangle> platformArray;
 	private ArrayList<Enemies> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
@@ -88,7 +90,7 @@ public class Gamestuff extends ApplicationAdapter {
 				enemy.setEnemyRender(true);
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == false && objMPlayer.canJump == true)
+		if(Gdx.input.isKeyPressed(Keys.S) && !objMPlayer.isCrouching && objMPlayer.canJump)
 		{
 			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
 			objMPlayer.isCrouching = true;
@@ -97,7 +99,7 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.accelerationX--;
 			}
 		}
-		else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == true )
+		else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching )
 		{
 			objMPlayer.player.height = objMPlayer.player.height * 2.5f;
 			objMPlayer.isCrouching = false;
@@ -151,22 +153,23 @@ public class Gamestuff extends ApplicationAdapter {
 	}
     @Override
 	public void create () {
-
-
 		graphics.setWindowedMode(1200, 800);
+		graphics.setTitle("Fun Game :D");
+
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+
+
 		Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
 		Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
+		Platforms rectangle3 = Platforms.createRectangle(700, 100, 200, 20);
 		Platforms wall1 = Platforms.createRectangle(80, 80, 20, 600);
 
-
-
 		objMPlayer.playerVelocity = new Vector2(0, 0);
-
 
 		platformArray = new ArrayList<>();
 		enemy1Array = new ArrayList<>();
 		wallArray = new ArrayList<>();
-
 
 		playercam = new OrthographicCamera(1200, 800);
 
@@ -178,10 +181,11 @@ public class Gamestuff extends ApplicationAdapter {
 
 		platformArray.add(rectangle1.getRectangle());
 		platformArray.add(rectangle2.getRectangle());
+		platformArray.add(rectangle3.getRectangle());
 		wallArray.add(wall1.getRectangle());
 
 		Enemies objen = new Enemies(600.0f, 120.0f, 32.0f, 32.0f, 30.0f, 500.0f, 600.0f);
-		Enemies objen2 = new Enemies(500.0f, 180.0f, 32.0f, 32.0f, 30.0f, 450.0f, 800.0f);
+		Enemies objen2 = new Enemies(1000.0f, 180.0f, 32.0f, 32.0f, 30.0f, 750.0f, 1000.0f);
 
 		enemy1Array.add(objen);
 		enemy1Array.add(objen2);
@@ -193,10 +197,12 @@ public class Gamestuff extends ApplicationAdapter {
 		input();
 		playercam.update();
 		rects.setProjectionMatrix(playercam.combined);
+		batch.setProjectionMatrix(playercam.combined);
 
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
-        /*batch.begin();
-		font.draw(batch, text, 100, 100);*/
+        batch.begin();
+		String text = "Hello there how are you doing today?";
+		font.draw(batch, text, 400, 750);
 		objMPlayer.playerdraw();
 
         objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
@@ -228,7 +234,7 @@ public class Gamestuff extends ApplicationAdapter {
 				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
 			}
 		}
-		//batch.end();
+		 batch.end();
          rects.end();
 	}
 
@@ -236,6 +242,6 @@ public class Gamestuff extends ApplicationAdapter {
 	public void dispose () {
 		objMPlayer.playerRender.dispose();
 		rects.dispose();
-		//batch.dispose();
+		batch.dispose();
 	}
 }
