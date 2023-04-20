@@ -25,7 +25,7 @@ public class Gamestuff extends ApplicationAdapter {
 	//BitmapFont font = new BitmapFont();
 	//String text = "This is text";
 	private ArrayList<Rectangle> platformArray;
-	private ArrayList<Rectangle> enemy1Array;
+	private ArrayList<Enemies> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
 
 
@@ -53,12 +53,20 @@ public class Gamestuff extends ApplicationAdapter {
 	}
 
 	public void enemyCollision() {
-        for (Rectangle enemyCollide1 : enemy1Array) {
-			float enemyTop = enemyCollide1.y + enemyCollide1.height;
+        for (Enemies enemyCollide1 : enemy1Array) {
+			float enemyTop = enemyCollide1.getRectangle().y + enemyCollide1.getRectangle().height;
 
-			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1)) {
+			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle())) {
                objen.enemyRender = false;
-			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1) && objen.enemyRender) {
+			   for(Enemies enemy : enemy1Array)
+			   {
+				   if(enemy.getRectangle().equals(enemyCollide1))
+				   {
+					   enemy.setEnemyRender(false);
+					   break;
+				   }
+			   }
+			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && objen.enemyRender) {
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 105;
 			}
@@ -139,6 +147,7 @@ public class Gamestuff extends ApplicationAdapter {
 		Platforms wall1 = Platforms.createRectangle(80, 80, 20, 600);
 
 
+
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 
@@ -159,7 +168,7 @@ public class Gamestuff extends ApplicationAdapter {
 		platformArray.add(rectangle2.getRectangle());
 		wallArray.add(wall1.getRectangle());
 
-		enemy1Array.add(objen.getRectangle());
+		enemy1Array.add(objen);
 	}
 
 	@Override
@@ -194,9 +203,9 @@ public class Gamestuff extends ApplicationAdapter {
 		for(Rectangle platform : platformArray) {
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}
-		for(Rectangle enemies : enemy1Array) {
-			if(objen.enemyRender) {
-				rects.rect(enemies.x, enemies.y, enemies.width, enemies.height);
+		for(Enemies enemies : enemy1Array) {
+			if(enemies.getEnemyRender()) {
+				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
 			}
 		}
 		//batch.end();

@@ -10,7 +10,7 @@ public class Enemies {
      //these two edges determine the range of movement for the enemy before they turn around
      private float rightEdge;
      private Rectangle rectangle;
-     public boolean enemyRender = true;
+     public boolean enemyRender;
      //a reminder to myself that this should start true
 
      public Enemies(float startX, float startY, float width, float height, float eSpeedX, float leftEdge, float rightEdge)
@@ -20,7 +20,7 @@ public class Enemies {
          this.eSpeedX = eSpeedX;
          this.leftEdge = leftEdge;
          this.rightEdge = rightEdge;
-
+         this.enemyRender = true;
      }
     public void enemyType1()
     {
@@ -42,6 +42,8 @@ public class Enemies {
     {
         return rectangle;
     }
+    public boolean getEnemyRender() {return enemyRender;}
+    public void setEnemyRender(boolean render){this.enemyRender = render;}
     /*public Rectangle enemyType2()
     {
         return null;
