@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
+
+import javax.swing.border.EmptyBorder;
+
 import static com.badlogic.gdx.Gdx.gl20;
 import static com.badlogic.gdx.Gdx.graphics;
 import java.util.ArrayList;
@@ -27,9 +30,6 @@ public class Gamestuff extends ApplicationAdapter {
 	private ArrayList<Rectangle> platformArray;
 	private ArrayList<Enemies> enemy1Array;
 	private ArrayList<Rectangle> wallArray;
-
-
-	Enemies objen = new Enemies(500.0f, 120.0f, 32.0f, 32.0f, 30.0f, 450.0f, 550.0f);
 
     public void wallCollision() {
 		for(Rectangle wallCollide : wallArray) {
@@ -57,7 +57,7 @@ public class Gamestuff extends ApplicationAdapter {
 			float enemyTop = enemyCollide1.getRectangle().y + enemyCollide1.getRectangle().height;
 
 			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle())) {
-               objen.enemyRender = false;
+               enemyCollide1.enemyRender = false;
 			   for(Enemies enemy : enemy1Array)
 			   {
 				   if(enemy.getRectangle().equals(enemyCollide1))
@@ -66,35 +66,47 @@ public class Gamestuff extends ApplicationAdapter {
 					   break;
 				   }
 			   }
-			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && objen.enemyRender) {
+			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && enemyCollide1.enemyRender) {
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 105;
 			}
 		}
 	}
 
-	public void input() {
-		if(Gdx.input.isKeyPressed(Keys.R)) {
+	public void input()
+	{
+		if(Gdx.input.isKeyPressed(Keys.R))
+		{
 			objMPlayer.playerPos.x = 140;
 			objMPlayer.playerPos.y = 105;
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerVelocity.x = 0;
 			objMPlayer.player.height = 50;
 			objMPlayer.accelerationX = 75.0f;
-
-			objen.enemyRender = true;
+			for(Enemies enemy : enemy1Array)
+			{
+				enemy.setEnemyRender(true);
+			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == false && objMPlayer.canJump == true) {
+		if(Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == false && objMPlayer.canJump == true)
+		{
 			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
 			objMPlayer.isCrouching = true;
-			objMPlayer.accelerationX = -0.5f;
-		} else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == true ) {
+			if(objMPlayer.playerVelocity.x > 0)
+			{
+				objMPlayer.accelerationX--;
+			}
+		}
+		else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching == true )
+		{
 			objMPlayer.player.height = objMPlayer.player.height * 2.5f;
 			objMPlayer.isCrouching = false;
 			objMPlayer.accelerationX = 75f;
 		}
-		if(Gdx.input.isKeyPressed(Keys.A)) {
-			if(objMPlayer.playerVelocity.x >= 0) {
+		if(Gdx.input.isKeyPressed(Keys.A))
+		{
+			if(objMPlayer.playerVelocity.x >= 0)
+			{
 				objMPlayer.playerVelocity.x = -objMPlayer.accelerationX * graphics.getDeltaTime();
 			}
 			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
@@ -168,7 +180,11 @@ public class Gamestuff extends ApplicationAdapter {
 		platformArray.add(rectangle2.getRectangle());
 		wallArray.add(wall1.getRectangle());
 
+		Enemies objen = new Enemies(600.0f, 120.0f, 32.0f, 32.0f, 30.0f, 500.0f, 600.0f);
+		Enemies objen2 = new Enemies(500.0f, 180.0f, 32.0f, 32.0f, 30.0f, 450.0f, 800.0f);
+
 		enemy1Array.add(objen);
+		enemy1Array.add(objen2);
 	}
 
 	@Override
@@ -192,7 +208,11 @@ public class Gamestuff extends ApplicationAdapter {
 
 		objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
-		objen.enemyType1();
+		for(Enemies enemies : enemy1Array) {
+			if(enemies.getEnemyRender()) {
+				enemies.enemyType1();
+			}
+		}
 		enemyCollision();
 
 
