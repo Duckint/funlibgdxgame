@@ -173,7 +173,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 		input();
 		playercam.update();
-		//rects.setProjectionMatrix(playercam.combined);
+		rects.setProjectionMatrix(playercam.combined);
 		batch.setProjectionMatrix(batch.getProjectionMatrix().setToOrtho2D(0, 0, 1200, 800));
 
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
