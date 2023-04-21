@@ -29,12 +29,10 @@ public class Gamestuff extends ApplicationAdapter {
 	private GlyphLayout layout;
 
 
-	private ArrayList<Rectangle> platformArray;
-	private ArrayList<Enemies> enemy1Array;
-	private ArrayList<Rectangle> wallArray;
+
 
     public void wallCollision() {
-		for(Rectangle wallCollide : wallArray) {
+		for(Rectangle wallCollide : objLvl.wallArray) {
 			if(objMPlayer.player.overlaps(wallCollide)) {
 				objMPlayer.playerVelocity.x = 0;
 				objMPlayer.playerPos.x = wallCollide.x + wallCollide.width;
@@ -42,7 +40,7 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 	}
     public void platformCollision() {
-		for(Rectangle platCollide : platformArray) {
+		for(Rectangle platCollide : objLvl.platformArray) {
 			if(objMPlayer.player.overlaps(platCollide)) {
 				objMPlayer.playerVelocity.y = 0;
 				objMPlayer.playerPos.y = platCollide.y + platCollide.height;
@@ -50,24 +48,23 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.canJump = true;
 				objMPlayer.canSlam = false;
 				objMPlayer.isSlamming = false;
+				objMPlayer.isPlayerJumping = false;
 			}
 		}
 	}
 
 	public void enemyCollision() {
-        for (Enemies enemyCollide1 : enemy1Array) {
+        for (Enemies enemyCollide1 : objLvl.enemy1Array) {
 			float enemyTop = enemyCollide1.getRectangle().y + enemyCollide1.getRectangle().height;
 
 			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle())) {
                enemyCollide1.enemyRender = false;
-			   for(Enemies enemy : enemy1Array)
-			   {
-				   if(enemy.getRectangle().equals(enemyCollide1))
-				   {
-					   enemy.setEnemyRender(false);
-					   break;
-				   }
-			   }
+				for(Enemies enemy : objLvl.enemy1Array) {
+					if(enemy.getRectangle().equals(enemyCollide1)) {
+						enemy.setEnemyRender(false);
+						break;
+					}
+				}
 			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && enemyCollide1.enemyRender) {
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 105;
@@ -75,40 +72,31 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 	}
 
-	public void input()
-	{
-		if(Gdx.input.isKeyPressed(Keys.R))
-		{
+	public void input() {
+		if(Gdx.input.isKeyPressed(Keys.R)) {
 			objMPlayer.playerPos.x = 140;
 			objMPlayer.playerPos.y = 105;
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerVelocity.x = 0;
 			objMPlayer.player.height = 50;
 			objMPlayer.accelerationX = 75.0f;
-			for(Enemies enemy : enemy1Array)
-			{
+			for(Enemies enemy : objLvl.enemy1Array) {
 				enemy.setEnemyRender(true);
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.S) && !objMPlayer.isCrouching && objMPlayer.canJump)
-		{
+		if(Gdx.input.isKeyPressed(Keys.S) && !objMPlayer.isCrouching && !objMPlayer.isPlayerJumping) {
 			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
 			objMPlayer.isCrouching = true;
-			if(objMPlayer.playerVelocity.x > 0)
-			{
+			if(objMPlayer.playerVelocity.x > 0) {
 				objMPlayer.accelerationX--;
 			}
-		}
-		else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching )
-		{
+		} else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching ) {
 			objMPlayer.player.height = objMPlayer.player.height * 2.5f;
 			objMPlayer.isCrouching = false;
 			objMPlayer.accelerationX = 75f;
 		}
-		if(Gdx.input.isKeyPressed(Keys.A))
-		{
-			if(objMPlayer.playerVelocity.x >= 0)
-			{
+		if(Gdx.input.isKeyPressed(Keys.A)) {
+			if(objMPlayer.playerVelocity.x >= 0) {
 				objMPlayer.playerVelocity.x = -objMPlayer.accelerationX * graphics.getDeltaTime();
 			}
 			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
@@ -160,16 +148,12 @@ public class Gamestuff extends ApplicationAdapter {
 		font = new BitmapFont();
 
 
-		Platforms rectangle1 = Platforms.createRectangle(100, 80, 200, 20);
-		Platforms rectangle2 = Platforms.createRectangle(400, 60, 200, 20);
-		Platforms rectangle3 = Platforms.createRectangle(700, 100, 200, 20);
-		Platforms wall1 = Platforms.createRectangle(80, 80, 20, 600);
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
-		platformArray = new ArrayList<>();
-		enemy1Array = new ArrayList<>();
-		wallArray = new ArrayList<>();
+		objLvl.platformArray = new ArrayList<>();
+		objLvl.enemy1Array = new ArrayList<>();
+		objLvl.wallArray = new ArrayList<>();
 
 		playercam = new OrthographicCamera(1200, 800);
 
@@ -179,16 +163,9 @@ public class Gamestuff extends ApplicationAdapter {
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 
-		platformArray.add(rectangle1.getRectangle());
-		platformArray.add(rectangle2.getRectangle());
-		platformArray.add(rectangle3.getRectangle());
-		wallArray.add(wall1.getRectangle());
 
-		Enemies objen = new Enemies(600.0f, 120.0f, 32.0f, 32.0f, 30.0f, 500.0f, 600.0f);
-		Enemies objen2 = new Enemies(1000.0f, 180.0f, 32.0f, 32.0f, 30.0f, 750.0f, 1000.0f);
+		objLvl.level1();
 
-		enemy1Array.add(objen);
-		enemy1Array.add(objen2);
 	}
 
 	@Override
@@ -214,7 +191,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 		objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
-		for(Enemies enemies : enemy1Array) {
+		for(Enemies enemies : objLvl.enemy1Array) {
 			if(enemies.getEnemyRender()) {
 				enemies.enemyType1();
 			}
@@ -223,18 +200,18 @@ public class Gamestuff extends ApplicationAdapter {
 
 
 		rects.begin(ShapeRenderer.ShapeType.Line);
-		for(Rectangle walls: wallArray) {
+		for(Rectangle walls: objLvl.wallArray) {
 			rects.rect(walls.x, walls.y, walls.width, walls.height);
 		}
-		for(Rectangle platform : platformArray) {
+		for(Rectangle platform : objLvl.platformArray) {
 			rects.rect(platform.x, platform.y, platform.width, platform.height);
 		}
-		for(Enemies enemies : enemy1Array) {
+		for(Enemies enemies : objLvl.enemy1Array) {
 			if(enemies.getEnemyRender()) {
 				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
 			}
 		}
-		 batch.end();
+		batch.end();
          rects.end();
 	}
 
