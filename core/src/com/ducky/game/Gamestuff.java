@@ -15,6 +15,7 @@ import static com.badlogic.gdx.Gdx.gl20;
 import static com.badlogic.gdx.Gdx.graphics;
 import java.util.ArrayList;
 
+
 public class Gamestuff extends ApplicationAdapter {
 
 	Player objMPlayer = new Player();
@@ -145,9 +146,12 @@ public class Gamestuff extends ApplicationAdapter {
 		graphics.setTitle("Fun Game :D");
 
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("reallycool.fnt"), false);
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
+
+
+
 
 		objLvl.platformArray = new ArrayList<>();
 		objLvl.enemy1Array = new ArrayList<>();
@@ -169,13 +173,14 @@ public class Gamestuff extends ApplicationAdapter {
 
 		input();
 		playercam.update();
-		rects.setProjectionMatrix(playercam.combined);
-		batch.setProjectionMatrix(playercam.combined);
+		//rects.setProjectionMatrix(playercam.combined);
+		batch.setProjectionMatrix(batch.getProjectionMatrix().setToOrtho2D(0, 0, 1200, 800));
 
 		Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
         batch.begin();
 		String text = "Hello there how are you doing today?";
 		font.draw(batch, text, 400, 750);
+		batch.end();
 		objMPlayer.playerdraw();
 
         objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
@@ -207,7 +212,7 @@ public class Gamestuff extends ApplicationAdapter {
 				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
 			}
 		}
-		batch.end();
+
          rects.end();
 	}
 
