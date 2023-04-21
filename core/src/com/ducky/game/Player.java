@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
     ShapeRenderer playerRender;
     public Vector2 playerVelocity;
-    public Vector2 playerPos = new Vector2(140, 120);
+    public Vector2 startingPlayerPos = new Vector2();
+    public Vector2 playerPos = new Vector2(140, 105);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
-
     public boolean isCrouching = false;
     public float sprintPowa = 1.02f;
     public float currentFallSpeed = 50.0f;

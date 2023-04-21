@@ -74,8 +74,8 @@ public class Gamestuff extends ApplicationAdapter {
 
 	public void input() {
 		if(Gdx.input.isKeyPressed(Keys.R)) {
-			objMPlayer.playerPos.x = 140;
-			objMPlayer.playerPos.y = 105;
+			objMPlayer.playerPos.x = objLvl.levelPlayerpos.x;
+			objMPlayer.playerPos.y = objLvl.levelPlayerpos.y;
 			objMPlayer.playerVelocity.y = 0;
 			objMPlayer.playerVelocity.x = 0;
 			objMPlayer.player.height = 50;
@@ -147,8 +147,6 @@ public class Gamestuff extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 
-
-
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
 		objLvl.platformArray = new ArrayList<>();
@@ -163,9 +161,7 @@ public class Gamestuff extends ApplicationAdapter {
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 
-
 		objLvl.level1();
-
 	}
 
 	@Override
