@@ -165,7 +165,7 @@ public class Gamestuff extends ApplicationAdapter {
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 
-		objLvl.level1();
+		objLvl.leveltest();
 	}
 
 	@Override
