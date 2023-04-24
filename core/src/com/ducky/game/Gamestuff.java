@@ -2,7 +2,6 @@ package com.ducky.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -52,6 +51,11 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.isSlamming = false;
 				objMPlayer.isPlayerJumping = false;
 			}
+			/*if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+			{
+				Platforms plat = Platforms.createRectangle(Gdx.input.getX(), Gdx.input.getY(), 50, 50);
+				objLvl.platformArray.add(plat.getRectangle());
+			}*/
 		}
 	}
 
@@ -74,22 +78,19 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 	}
 
-	public void input() {
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-		{
-			System.out.println("Left Button Pressed!");
-		}
-			if(Gdx.input.isKeyPressed(Keys.R)) {
-				objMPlayer.playerPos.x = objLvl.levelPlayerpos.x;
-				objMPlayer.playerPos.y = objLvl.levelPlayerpos.y;
-				objMPlayer.playerVelocity.y = 0;
-				objMPlayer.playerVelocity.x = 0;
-				objMPlayer.player.height = 50;
-				objMPlayer.accelerationX = 75.0f;
-				for(Enemies enemy : objLvl.enemy1Array) {
-					enemy.setEnemyRender(true);
-				}
+	public void keyinput() {
+
+		if(Gdx.input.isKeyPressed(Keys.R)) {
+			objMPlayer.playerPos.x = objLvl.levelPlayerpos.x;
+			objMPlayer.playerPos.y = objLvl.levelPlayerpos.y;
+			objMPlayer.playerVelocity.y = 0;
+			objMPlayer.playerVelocity.x = 0;
+			objMPlayer.player.height = 50;
+			objMPlayer.accelerationX = 75.0f;
+			for(Enemies enemy : objLvl.enemy1Array) {
+				enemy.setEnemyRender(true);
 			}
+		}
 		if(Gdx.input.isKeyPressed(Keys.S) && !objMPlayer.isCrouching && !objMPlayer.isPlayerJumping) {
 			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
 			objMPlayer.isCrouching = true;
@@ -174,7 +175,7 @@ public class Gamestuff extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		input();
+		keyinput();
 		playercam.update();
 		rects.setProjectionMatrix(playercam.combined);
 		batch.setProjectionMatrix(batch.getProjectionMatrix().setToOrtho2D(0, 0, 1200, 800));
@@ -189,36 +190,23 @@ public class Gamestuff extends ApplicationAdapter {
         objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
 		objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
-		wallCollision();
-		platformCollision();
-
-
 		objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
+		rects.begin(ShapeRenderer.ShapeType.Line);
+		for(Rectangle walls: objLvl.wallArray) {rects.rect(walls.x, walls.y, walls.width, walls.height);}
+		wallCollision();
+		for(Rectangle platform : objLvl.platformArray) {rects.rect(platform.x, platform.y, platform.width, platform.height);}
+		platformCollision();
 		for(Enemies enemies : objLvl.enemy1Array) {
 			if(enemies.getEnemyRender()) {
+				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
 				enemies.enemyType1();
 			}
 		}
 		enemyCollision();
 
-
-		rects.begin(ShapeRenderer.ShapeType.Line);
-		for(Rectangle walls: objLvl.wallArray) {
-			rects.rect(walls.x, walls.y, walls.width, walls.height);
-		}
-		for(Rectangle platform : objLvl.platformArray) {
-			rects.rect(platform.x, platform.y, platform.width, platform.height);
-		}
-		for(Enemies enemies : objLvl.enemy1Array) {
-			if(enemies.getEnemyRender()) {
-				rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
-			}
-		}
-
          rects.end();
 	}
-
 	@Override
 	public void dispose () {
 		objMPlayer.playerRender.dispose();
