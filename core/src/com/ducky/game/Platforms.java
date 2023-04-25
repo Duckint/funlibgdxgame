@@ -10,12 +10,8 @@ public class Platforms
     private Rectangle rectangle;
 
 
-    private Platforms(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
+    private Platforms(Rectangle rectangle) {this.rectangle = rectangle;}
+    public Rectangle getRectangle() {return rectangle;}
 
     public static Platforms createRectangle(float x, float y, float width, float height) {
         //While this is in the Platforms class, it should easily work for any rectangle I need to draw.

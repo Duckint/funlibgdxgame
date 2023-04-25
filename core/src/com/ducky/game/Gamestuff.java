@@ -24,13 +24,8 @@ public class Gamestuff extends ApplicationAdapter {
 	private OrthographicCamera playercam;
 
 	ShapeRenderer rects;
-
 	SpriteBatch batch;
 	BitmapFont font;
-	private GlyphLayout layout;
-
-
-
 
     public void wallCollision() {
 		for(Rectangle wallCollide : objLvl.wallArray) {
@@ -51,11 +46,12 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.isSlamming = false;
 				objMPlayer.isPlayerJumping = false;
 			}
-			/*if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() >= platCollide.x && Gdx.input.getX() <= platCollide.x + platCollide.width && graphics.getHeight() - Gdx.input.getY() >= platCollide.y && graphics.getHeight() - Gdx.input.getY() <= platCollide.y + platCollide.height) {
+				System.out.println("Clicked!");
+			}
 			{
-				Platforms plat = Platforms.createRectangle(Gdx.input.getX(), Gdx.input.getY(), 50, 50);
-				objLvl.platformArray.add(plat.getRectangle());
-			}*/
+
+			}
 		}
 	}
 
@@ -77,10 +73,8 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 		}
 	}
-
-	public void keyinput() {
-
-		if(Gdx.input.isKeyPressed(Keys.R)) {
+	public void reset(){
+		if(Gdx.input.isKeyPressed(Input.Keys.R)) {
 			objMPlayer.playerPos.x = objLvl.levelPlayerpos.x;
 			objMPlayer.playerPos.y = objLvl.levelPlayerpos.y;
 			objMPlayer.playerVelocity.y = 0;
@@ -90,60 +84,6 @@ public class Gamestuff extends ApplicationAdapter {
 			for(Enemies enemy : objLvl.enemy1Array) {
 				enemy.setEnemyRender(true);
 			}
-		}
-		if(Gdx.input.isKeyPressed(Keys.S) && !objMPlayer.isCrouching && !objMPlayer.isPlayerJumping) {
-			objMPlayer.player.height = objMPlayer.player.height / 2.5f;
-			objMPlayer.isCrouching = true;
-			if(objMPlayer.playerVelocity.x > 0) {
-				objMPlayer.accelerationX--;
-			}
-		} else if(!Gdx.input.isKeyPressed(Keys.S) && objMPlayer.isCrouching ) {
-			objMPlayer.player.height = objMPlayer.player.height * 2.5f;
-			objMPlayer.isCrouching = false;
-			objMPlayer.accelerationX = 75f;
-		}
-		if(Gdx.input.isKeyPressed(Keys.A)) {
-			if(objMPlayer.playerVelocity.x >= 0) {
-				objMPlayer.playerVelocity.x = -objMPlayer.accelerationX * graphics.getDeltaTime();
-			}
-			objMPlayer.playerVelocity.x -= objMPlayer.accelerationX * graphics.getDeltaTime();
-		}
-		if(Gdx.input.isKeyPressed(Keys.D)) {
-			if(objMPlayer.playerVelocity.x <= 0) {
-				objMPlayer.playerVelocity.x = objMPlayer.accelerationX * graphics.getDeltaTime();
-			}
-			objMPlayer.playerVelocity.x += objMPlayer.accelerationX * graphics.getDeltaTime();
-		}
-
-		if (!Gdx.input.isKeyPressed(Keys.A) && !Gdx.input.isKeyPressed(Keys.D)) {
-			if (objMPlayer.playerVelocity.x > 0) {
-				objMPlayer.playerVelocity.x -= objMPlayer.decelerationX * graphics.getDeltaTime();
-				if (objMPlayer.playerVelocity.x < 0) {
-					objMPlayer.playerVelocity.x = 0;
-				}
-			} else if (objMPlayer.playerVelocity.x < 0) {
-				objMPlayer.playerVelocity.x += objMPlayer.decelerationX * graphics.getDeltaTime();
-				if(objMPlayer.playerVelocity.x > 0) {
-					objMPlayer.playerVelocity.x = 0;
-				}
-			}
-		}
-		if(Gdx.input.isKeyPressed(Keys.W) && objMPlayer.canJump) {
-			objMPlayer.playerVelocity.y = objMPlayer.jumpPowa;
-			objMPlayer.canJump = false;
-			objMPlayer.isPlayerJumping = true;
-			objMPlayer.canSlam = true;
-			objMPlayer.canPlayerRun = false;
-		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && objMPlayer.canSlam && objMPlayer.isPlayerJumping) {
-			objMPlayer.playerVelocity.y = -objMPlayer.currentFallSpeed * objMPlayer.slamPowa;
-			//currentFallSpeed * slamPowa = how hard the player slams
-
-			objMPlayer.isSlamming = true;
-			objMPlayer.canSlam = false;
-		}
-        if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) && objMPlayer.canPlayerRun) {
-           objMPlayer.playerVelocity.x = objMPlayer.playerVelocity.x * objMPlayer.sprintPowa;
 		}
 	}
     @Override
@@ -175,7 +115,8 @@ public class Gamestuff extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		keyinput();
+		reset();
+		objMPlayer.keyinput();
 		playercam.update();
 		rects.setProjectionMatrix(playercam.combined);
 		batch.setProjectionMatrix(batch.getProjectionMatrix().setToOrtho2D(0, 0, 1200, 800));
