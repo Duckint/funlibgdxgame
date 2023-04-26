@@ -46,12 +46,6 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.isSlamming = false;
 				objMPlayer.isPlayerJumping = false;
 			}
-			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() >= platCollide.x && Gdx.input.getX() <= platCollide.x + platCollide.width && graphics.getHeight() - Gdx.input.getY() >= platCollide.y && graphics.getHeight() - Gdx.input.getY() <= platCollide.y + platCollide.height) {
-				System.out.println("Clicked!");
-			}
-			{
-
-			}
 		}
 	}
 
@@ -146,7 +140,7 @@ public class Gamestuff extends ApplicationAdapter {
 		}
 		enemyCollision();
 
-         rects.end();
+		rects.end();
 	}
 	@Override
 	public void dispose () {

@@ -4,14 +4,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-
 import static com.badlogic.gdx.Gdx.graphics;
 
 
 
 public class Player {
     ShapeRenderer playerRender;
-
     public Vector2 playerVelocity;
     //public Vector2 startingPlayerPos = new Vector2();
     public Vector2 playerPos = new Vector2(140, 105);
