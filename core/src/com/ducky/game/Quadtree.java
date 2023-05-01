@@ -1,4 +1,4 @@
-/*package com.ducky.game;
+package com.ducky.game;
 
 
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
@@ -13,53 +13,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Quadtree {
+    private Node root;
 
-    class Node {
-        Key x, y;
-        Node NW, NE, SW, SE;
-        Value value;
+    private class Node {
+        float x, y;
+        Node NW, NE, SE, SW;
+        Rectangle rect;
 
-        Node(Key x, Key y, Value value) {
+        Node(float x, float y, Rectangle rect) {
             this.x = x;
             this.y = y;
-            this.value = value;
+            this.rect = rect;
         }
     }
-    public void insert()
-    {
-        private Node root;
+    private Node insert(Node h, float x, float y, Rectangle rect) {
+        if (h == null) return new Node(x, y, rect);
 
-        private class Node
-        {
-            float x, y;
-            Node NW, NE, SE, SW;
-            Rectangle rect;
-
-            Node(float x, float y, Rectangle rect)
-            {
-                this.x = x;
-                this.y = y;
-                this.rect = rect;
-            }
-        }
-        public void insert(Rectangle rect)
-        {
-            root = insert(root, rect.x, rect.y, rect);
-        }
-        public List<Rectangle> query2D(Rectangle rect)
-        {
-            List<Rectangle> foundRect = new ArrayList<>();
-            return foundRect;
-        }
-        private void query2D(Node h, Rectangle rect)
-        {
-            if(h == null) return;
-        }
-        private Node insert(Node h, float x, float y, Rectangle rect)
-        {
-            if(h == null) return new Node(x, y, rect);
-
-            return h;
-        }
+        return h;
     }
-*/
+
+    public void insert(Rectangle rect) {
+        root = insert(root, rect.x, rect.y, rect);
+    }
+    public List<Rectangle> query2D(Rectangle rect) {
+        List<Rectangle> foundRect = new ArrayList<>();
+        return foundRect;
+    }
+
+    private void query2D(Node h, Rectangle rect) {
+        if (h == null) return;
+    }
+
+
+}
