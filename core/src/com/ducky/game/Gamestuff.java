@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -61,15 +60,19 @@ public class Gamestuff extends ApplicationAdapter {
         for (Enemies enemyCollide1 : objLvl.enemy1Array) {
 			float enemyTop = enemyCollide1.getRectangle().y + enemyCollide1.getRectangle().height;
 
-			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle())) {
+			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && Gdx.input.isKeyPressed(Keys.P))
+			{
                enemyCollide1.enemyRender = false;
-				for(Enemies enemy : objLvl.enemy1Array) {
-					if(enemy.getRectangle().equals(enemyCollide1)) {
+				for(Enemies enemy : objLvl.enemy1Array)
+				{
+					if(enemy.getRectangle().equals(enemyCollide1))
+					{
 						enemy.setEnemyRender(false);
 						break;
 					}
 				}
-			} else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && enemyCollide1.enemyRender) {
+			}
+			else if(objMPlayer.playerPos.y - objMPlayer.player.height <= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && enemyCollide1.enemyRender) {
 				objMPlayer.playerPos.x = 140;
 				objMPlayer.playerPos.y = 105;
 			}
@@ -97,7 +100,6 @@ public class Gamestuff extends ApplicationAdapter {
 		font = new BitmapFont(Gdx.files.internal("reallycool.fnt"), false);
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
-
 
 		objLvl.platformArray = new ArrayList<>();
 		objLvl.enemy1Array = new ArrayList<>();

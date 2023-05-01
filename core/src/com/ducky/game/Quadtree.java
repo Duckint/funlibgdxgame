@@ -1,12 +1,6 @@
 package com.ducky.game;
 
-
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
-
-import java.security.Key;
-
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 
 import java.util.ArrayList;
@@ -31,18 +25,17 @@ public class Quadtree {
 
         return h;
     }
-
     public void insert(Rectangle rect) {
         root = insert(root, rect.x, rect.y, rect);
     }
-    public List<Rectangle> query2D(Rectangle rect) {
+    public List<Rectangle> query2D(Rectangle rect)
+    {
         List<Rectangle> foundRect = new ArrayList<>();
         return foundRect;
     }
-
-    private void query2D(Node h, Rectangle rect) {
+    private void query2D(Node h, Rectangle rect)
+    {
         if (h == null) return;
+
     }
-
-
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Levels
 {
     Player objlvlplayer = new Player();
+    Quadtree quadobj = new Quadtree();
     public ArrayList<Rectangle> platformArray;
     public ArrayList<Rectangle> wallArray;
     public ArrayList<Enemies> enemy1Array;
@@ -32,6 +33,7 @@ public class Levels
             Enemies objen = new Enemies(600.0f, 120.0f, 32.0f, 32.0f, 30.0f, 500.0f, 600.0f);
             Enemies objen2 = new Enemies(1000.0f, 180.0f, 32.0f, 32.0f, 30.0f, 750.0f, 1000.0f);
 
+            //quadobj.insert(objen.getRectangle());
             enemy1Array.add(objen);
             enemy1Array.add(objen2);
     }

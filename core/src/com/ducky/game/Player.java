@@ -6,12 +6,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import static com.badlogic.gdx.Gdx.graphics;
 
-
-
 public class Player {
     ShapeRenderer playerRender;
     public Vector2 playerVelocity;
-    //public Vector2 startingPlayerPos = new Vector2();
     public Vector2 playerPos = new Vector2(140, 105);
     public Rectangle player = new Rectangle(playerPos.x, playerPos.y, 50, 50);
     public boolean isCrouching = false;
@@ -52,7 +49,6 @@ public class Player {
             }
             playerVelocity.x += accelerationX * graphics.getDeltaTime();
         }
-
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
             if (playerVelocity.x > 0) {
                 playerVelocity.x -= decelerationX * graphics.getDeltaTime();
