@@ -38,6 +38,7 @@ public class Enemies {
         }
         rectangle.x += eSpeedX * delta;
     }
+
     public Rectangle getRectangle()
     {
         return rectangle;

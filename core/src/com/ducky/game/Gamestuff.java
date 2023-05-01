@@ -35,6 +35,14 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 		}
 	}
+	public boolean collides(Rectangle rect)
+	{
+		Rectangle query = new Rectangle(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
+
+
+
+		return false;
+	}
     public void platformCollision() {
 		for(Rectangle platCollide : objLvl.platformArray) {
 			if(objMPlayer.player.overlaps(platCollide)) {
