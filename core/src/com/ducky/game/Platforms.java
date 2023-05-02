@@ -17,6 +17,7 @@ public class Platforms
         //While this is in the Platforms class, it should easily work for any rectangle I need to draw.
         //Being used in the Enemies Class
         //Being used in the Gamestuff Class
+        //Being used in the Menus Class
         Rectangle rectangle = new Rectangle(x, y, width, height);
         return new Platforms(rectangle);
     }
