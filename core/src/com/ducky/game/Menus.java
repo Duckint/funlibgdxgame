@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 
 public class Menus {
+
      ShapeRenderer menurender;
      public ArrayList<Rectangle> menubuttons;
      private boolean optionclicked, exitclicked, startclicked;
@@ -29,15 +30,18 @@ public class Menus {
         menubuttons.add(options.getRectangle());
         menubuttons.add(exit.getRectangle());
         menurender.begin(ShapeRenderer.ShapeType.Line);
+
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.input.getY();
         for(Rectangle menu: menubuttons)
         {
             menurender.rect(menu.x, menu.y, menu.width, menu.height);
+            if(Gdx.input.isKeyPressed(Input.Keys.I) && start.getRectangle().contains(mouseX, mouseY))
+            {
+                startclicked = true;
+            }
+        }
 
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.I))
-        {
-            startclicked = true;
-        }
         menurender.end();
 
     }
