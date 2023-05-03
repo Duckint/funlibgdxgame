@@ -109,6 +109,8 @@ public class Gamestuff extends ApplicationAdapter {
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
 
+		objMenu.mmC();
+
 		objMenu.menurender = new ShapeRenderer();
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
