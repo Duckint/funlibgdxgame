@@ -21,14 +21,17 @@ public class Menus {
      public boolean getStart() {return startclicked;}
      //public boolean getOption(){return optionclicked;}
      //public boolean getExit(){return exitclicked;}
+     public void mmC()//mainmenuCreate
+     {
+         Platforms start = Platforms.createRectangle(600, 600, 100, 100);
+         Platforms options = Platforms.createRectangle(600, 450, 100, 100);
+         Platforms exit = Platforms.createRectangle(600, 300, 100, 100);
+         menubuttons.add(start.getRectangle());
+         menubuttons.add(options.getRectangle());
+         menubuttons.add(exit.getRectangle());
+     }
      public void mainmenu()
-    {
-        Platforms start = Platforms.createRectangle(600, 600, 100, 100);
-        Platforms options = Platforms.createRectangle(600, 450, 100, 100);
-        Platforms exit = Platforms.createRectangle(600, 300, 100, 100);
-        menubuttons.add(start.getRectangle());
-        menubuttons.add(options.getRectangle());
-        menubuttons.add(exit.getRectangle());
+     {
         menurender.begin(ShapeRenderer.ShapeType.Line);
 
         float mouseX = Gdx.input.getX();
@@ -43,6 +46,5 @@ public class Menus {
         }
 
         menurender.end();
-
-    }
+     }
 }
