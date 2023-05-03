@@ -39,7 +39,7 @@ public class Menus {
         for(Rectangle menu: menubuttons)
         {
             menurender.rect(menu.x, menu.y, menu.width, menu.height);
-            if(Gdx.input.isKeyPressed(Input.Keys.I) && start.getRectangle().contains(mouseX, mouseY))
+            if(Gdx.input.isKeyPressed(Input.Keys.I))
             {
                 startclicked = true;
             }
