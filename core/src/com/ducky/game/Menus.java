@@ -44,7 +44,6 @@ public class Menus {
                 startclicked = true;
             }
         }
-
         menurender.end();
      }
 }

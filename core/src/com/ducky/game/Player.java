@@ -25,6 +25,12 @@ public class Player {
     public float decelerationX = 100.0f;
     //public float maxSpeedX = 200.0f;
 
+    public void playerMovementCalculations() {
+        playerPos.add(playerVelocity.x * graphics.getDeltaTime(), playerVelocity.y * graphics.getDeltaTime());
+        player.setPosition(playerPos.x, playerPos.y);
+
+        playerVelocity.y -= currentFallSpeed * graphics.getDeltaTime();
+    }
     public void keyinput() {
         if(Gdx.input.isKeyPressed(Input.Keys.S) && !isCrouching && !isPlayerJumping) {
             player.height = player.height / 2.5f;

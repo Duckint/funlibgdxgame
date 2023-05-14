@@ -26,6 +26,7 @@ public class Gamestuff extends ApplicationAdapter {
 	ShapeRenderer rects;
 	SpriteBatch batch;
 	BitmapFont font;
+	boolean isPaused = false;
 
     public void wallCollision() {
 		for(Rectangle wallCollide : objLvl.wallArray) {
@@ -122,7 +123,16 @@ public class Gamestuff extends ApplicationAdapter {
 		objMenu.mainmenu();
 		if(objMenu.getStart()){
 
-
+			if(Gdx.input.isKeyPressed(Keys.ESCAPE) && isPaused) {
+				isPaused = false;
+			}
+			else if(Gdx.input.isKeyPressed(Keys.ESCAPE) && !isPaused) {
+				isPaused = true;
+			}
+            if(!isPaused)
+			{
+				objMPlayer.playerMovementCalculations();
+			}
 			reset();
 			objMPlayer.keyinput();
 			playercam.update();
@@ -131,16 +141,17 @@ public class Gamestuff extends ApplicationAdapter {
 
 			Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
 			batch.begin();
-			String text = "Hello there how are you doing today?";
-			font.draw(batch, text, 400, 750);
 
+
+
+			if(isPaused) {
+				String text = "Paused";
+				font.draw(batch, text, 400, 750);
+			}
 			batch.end();
 			objMPlayer.playerdraw();
 
-			objMPlayer.playerPos.add(objMPlayer.playerVelocity.x * graphics.getDeltaTime(), objMPlayer.playerVelocity.y * graphics.getDeltaTime());
-			objMPlayer.player.setPosition(objMPlayer.playerPos.x, objMPlayer.playerPos.y);
 
-			objMPlayer.playerVelocity.y -= objMPlayer.currentFallSpeed * graphics.getDeltaTime();
 
 			rects.begin(ShapeRenderer.ShapeType.Line);
 			for (Rectangle walls : objLvl.wallArray) {
@@ -154,9 +165,10 @@ public class Gamestuff extends ApplicationAdapter {
 			for (Enemies enemies : objLvl.enemy1Array) {
 				if (enemies.getEnemyRender()) {
 					rects.rect(enemies.getRectangle().x, enemies.getRectangle().y, enemies.getRectangle().width, enemies.getRectangle().height);
-					enemies.enemyType1();
 				}
+				if(!isPaused){enemies.enemyType1();}
 			}
+
 			enemyCollision();
 
 			rects.end();
