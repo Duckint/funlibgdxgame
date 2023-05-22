@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-
 import java.util.ArrayList;
 
 public class Menus {
@@ -51,8 +50,11 @@ public class Menus {
             {
                 exitclicked = true;
             }
-            System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
         }
         menurender.end();
+     }
+     public void optionsmenu()
+     {
+
      }
 }

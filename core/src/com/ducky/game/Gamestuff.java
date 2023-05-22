@@ -25,7 +25,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	ShapeRenderer rects;
 	SpriteBatch batch;
-	BitmapFont font;
+	BitmapFont mainfont;
 	boolean isPaused = false;
 
     public void wallCollision() {
@@ -35,11 +35,6 @@ public class Gamestuff extends ApplicationAdapter {
 				objMPlayer.playerPos.x = wallCollide.x + wallCollide.width;
 			}
 		}
-	}
-	public boolean collides(Rectangle rect)
-	{
-		Rectangle query = new Rectangle(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
-		return false;
 	}
     public void platformCollision() {
 		for(Rectangle platCollide : objLvl.platformArray) {
@@ -96,7 +91,7 @@ public class Gamestuff extends ApplicationAdapter {
 		graphics.setTitle("Fun Game :D");
 
 		batch = new SpriteBatch();
-		font = new BitmapFont(Gdx.files.internal("reallycool.fnt"), false);
+		mainfont = new BitmapFont(Gdx.files.internal("reallycool.fnt"), false);
 
 		objMPlayer.playerVelocity = new Vector2(0, 0);
 
@@ -134,7 +129,7 @@ public class Gamestuff extends ApplicationAdapter {
 			}
             if(!isPaused)
 			{
-				objMPlayer.playerMovementCalculations();
+				objMPlayer.playerCalcs();
 			}
 			reset();
 			objMPlayer.keyinput();
@@ -145,15 +140,12 @@ public class Gamestuff extends ApplicationAdapter {
 			Gdx.gl.glClear(gl20.GL_COLOR_BUFFER_BIT);
 			batch.begin();
 
-
-
 			if(isPaused) {
 				String text = "Paused";
-				font.draw(batch, text, 400, 750);
+				mainfont.draw(batch, text, 400, 750);
 			}
 			batch.end();
 			objMPlayer.playerdraw();
-
 
 
 			rects.begin(ShapeRenderer.ShapeType.Line);
@@ -171,9 +163,7 @@ public class Gamestuff extends ApplicationAdapter {
 				}
 				if(!isPaused){enemies.enemyType1();}
 			}
-
 			enemyCollision();
-
 			rects.end();
 		}
 	}

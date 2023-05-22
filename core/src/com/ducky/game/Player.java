@@ -25,7 +25,7 @@ public class Player {
     public float decelerationX = 100.0f;
     //public float maxSpeedX = 200.0f;
 
-    public void playerMovementCalculations() {
+    public void playerCalcs() {
         playerPos.add(playerVelocity.x * graphics.getDeltaTime(), playerVelocity.y * graphics.getDeltaTime());
         player.setPosition(playerPos.x, playerPos.y);
 
