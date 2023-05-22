@@ -19,8 +19,8 @@ public class Menus {
          this.exitclicked = exitclicked;
      }
      public boolean getStart() {return startclicked;}
-     //public boolean getOption(){return optionclicked;}
-     //public boolean getExit(){return exitclicked;}
+     public boolean getOption(){return optionclicked;}
+     public boolean getExit(){return exitclicked;}
      public void mmC()//mainmenuCreate
      {
          Platforms start = Platforms.createRectangle(600, 600, 100, 100);
@@ -34,15 +34,24 @@ public class Menus {
      {
         menurender.begin(ShapeRenderer.ShapeType.Line);
 
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.input.getY();
-        for(Rectangle menu: menubuttons)
+        for(Rectangle button : menubuttons)
         {
-            menurender.rect(menu.x, menu.y, menu.width, menu.height);
-            if(Gdx.input.isKeyPressed(Input.Keys.I))
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY() ;
+            menurender.rect(button.x, button.y, button.width, button.height);
+            if(menubuttons.get(0).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
                 startclicked = true;
             }
+            else if(menubuttons.get(1).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            {
+                optionclicked = true;
+            }
+            else if(menubuttons.get(2).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+            {
+                exitclicked = true;
+            }
+            System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
         }
         menurender.end();
      }

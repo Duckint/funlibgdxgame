@@ -121,6 +121,9 @@ public class Gamestuff extends ApplicationAdapter {
 	@Override
 	public void render () {
 		objMenu.mainmenu();
+		if(objMenu.getExit()){
+			Gdx.app.exit();
+		}
 		if(objMenu.getStart()){
 
 			if(Gdx.input.isKeyPressed(Keys.ESCAPE) && isPaused) {
