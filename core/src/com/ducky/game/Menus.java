@@ -11,6 +11,9 @@ public class Menus {
      ShapeRenderer menurender;
      public ArrayList<Rectangle> menubuttons;
      private boolean optionclicked, exitclicked, startclicked;
+     //private String levelselected;
+     float mouseX;
+     float mouseY;
      public Menus(boolean optionclicked, boolean exitclicked, boolean startclicked)
      {
          this.startclicked = startclicked;
@@ -20,6 +23,7 @@ public class Menus {
      public boolean getStart() {return startclicked;}
      public boolean getOption(){return optionclicked;}
      public boolean getExit(){return exitclicked;}
+     //public String getLevel(){return levelselected;}
      public void mmC()//mainmenuCreate
      {
          Platforms start = Platforms.createRectangle(600, 600, 100, 100);
@@ -35,23 +39,39 @@ public class Menus {
 
         for(Rectangle button : menubuttons)
         {
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY() ;
+
             menurender.rect(button.x, button.y, button.width, button.height);
             if(menubuttons.get(0).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
                 startclicked = true;
+                menubuttons.clear();
             }
             else if(menubuttons.get(1).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
                 optionclicked = true;
+                menubuttons.clear();
             }
             else if(menubuttons.get(2).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
                 exitclicked = true;
+                menubuttons.clear();
             }
         }
         menurender.end();
+     }
+     public void levelselect()
+     {
+        /* menurender.begin();
+        Platforms leveltest = Platforms.createRectangle(100, 100, 50, 50);
+        menubuttons.add(leveltest.getRectangle());
+        for(Rectangle button : menubuttons)
+        {
+            menurender.rect(button.x, button.y, button.width, button.height);
+            if(menubuttons.get(0).contains(mouseX, mouseY))
+            {
+                levelselected = "leveltest";
+            }
+        }*/
      }
      public void optionsmenu()
      {

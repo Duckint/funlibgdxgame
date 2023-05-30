@@ -10,9 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
-import static com.badlogic.gdx.Gdx.gl20;
-import static com.badlogic.gdx.Gdx.graphics;
+
 import java.util.ArrayList;
+
+import static com.badlogic.gdx.Gdx.*;
 
 
 public class Gamestuff extends ApplicationAdapter {
@@ -54,7 +55,7 @@ public class Gamestuff extends ApplicationAdapter {
         for (Enemies enemyCollide1 : objLvl.enemy1Array) {
 			float enemyTop = enemyCollide1.getRectangle().y + enemyCollide1.getRectangle().height;
 
-			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && Gdx.input.isKeyPressed(Keys.P))
+			if(objMPlayer.playerPos.y + objMPlayer.player.height >= enemyTop && objMPlayer.player.overlaps(enemyCollide1.getRectangle()) && objMPlayer.isSlamming )
 			{
                enemyCollide1.enemyRender = false;
 				for(Enemies enemy : objLvl.enemy1Array)
@@ -105,13 +106,15 @@ public class Gamestuff extends ApplicationAdapter {
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
 
+		objMenu.mouseX = input.getX();
+		objMenu.mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		objMenu.mmC();
 
 		objMenu.menurender = new ShapeRenderer();
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 
-		objLvl.leveltest();
+
 	}
 	@Override
 	public void render () {
