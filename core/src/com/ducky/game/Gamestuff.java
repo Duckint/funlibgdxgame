@@ -20,7 +20,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	Player objMPlayer = new Player();
 	Levels objLvl = new Levels();
-	Menus objMenu = new Menus(false, false, false);
+	Mainmenu objMenu = new Mainmenu(false, false, false);
 
 	private OrthographicCamera playercam;
 
