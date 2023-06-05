@@ -6,22 +6,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 
+import static com.badlogic.gdx.Gdx.input;
+
 public class Mainmenu {
 
      ShapeRenderer menurender;
      public ArrayList<Rectangle> menubuttons;
-     private boolean optionclicked, exitclicked, startclicked;
+     private boolean startclicked;
      float mouseX;
      float mouseY;
-     public Mainmenu(boolean optionclicked, boolean exitclicked, boolean startclicked)
+     public Mainmenu(boolean startclicked)
      {
          this.startclicked = startclicked;
-         this.optionclicked = optionclicked;
-         this.exitclicked = exitclicked;
      }
      public boolean getStart() {return startclicked;}
-     public boolean getOption(){return optionclicked;}
-     public boolean getExit(){return exitclicked;}
 
      public void mmC()//mainmenuCreate
      {
@@ -31,6 +29,8 @@ public class Mainmenu {
          menubuttons.add(start.getRectangle());
          menubuttons.add(options.getRectangle());
          menubuttons.add(exit.getRectangle());
+         mouseX = input.getX();
+         mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
      }
      public void mainmenu()
      {
@@ -38,22 +38,17 @@ public class Mainmenu {
 
         for(Rectangle button : menubuttons)
         {
-
             menurender.rect(button.x, button.y, button.width, button.height);
             if(menubuttons.get(0).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
                 startclicked = true;
-                menubuttons.clear();
             }
             else if(menubuttons.get(1).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
-                optionclicked = true;
-                menubuttons.clear();
             }
             else if(menubuttons.get(2).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
-                exitclicked = true;
-                menubuttons.clear();
+                Gdx.app.exit();
             }
         }
         menurender.end();

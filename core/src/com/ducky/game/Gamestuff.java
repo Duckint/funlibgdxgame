@@ -10,9 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Input.Keys;
-
 import java.util.ArrayList;
-
 import static com.badlogic.gdx.Gdx.*;
 
 
@@ -20,7 +18,7 @@ public class Gamestuff extends ApplicationAdapter {
 
 	Player objMPlayer = new Player();
 	Levels objLvl = new Levels();
-	Mainmenu objMenu = new Mainmenu(false, false, false);
+	Mainmenu objMenu = new Mainmenu(false);
 
 	private OrthographicCamera playercam;
 
@@ -106,22 +104,14 @@ public class Gamestuff extends ApplicationAdapter {
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
 
-		objMenu.mouseX = input.getX();
-		objMenu.mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-		objMenu.mmC();
-
 		objMenu.menurender = new ShapeRenderer();
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
-
-
 	}
 	@Override
 	public void render () {
+		objMenu.mmC();
 		objMenu.mainmenu();
-		if(objMenu.getExit()){
-			Gdx.app.exit();
-		}
 		if(objMenu.getStart()){
 
 			if(Gdx.input.isKeyPressed(Keys.ESCAPE) && isPaused) {
@@ -150,7 +140,6 @@ public class Gamestuff extends ApplicationAdapter {
 			batch.end();
 			objMPlayer.playerdraw();
 
-
 			rects.begin(ShapeRenderer.ShapeType.Line);
 			for (Rectangle walls : objLvl.wallArray) {
 				rects.rect(walls.x, walls.y, walls.width, walls.height);
@@ -176,6 +165,5 @@ public class Gamestuff extends ApplicationAdapter {
 		objMenu.menurender.dispose();
 		rects.dispose();
 		batch.dispose();
-
 	}
 }
