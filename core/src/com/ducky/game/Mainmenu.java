@@ -21,7 +21,8 @@ public class Mainmenu {
      }
      public boolean getStart() {return startclicked;}
 
-     public void mmC()//mainmenuCreate
+
+     public void mainmenu()
      {
          Platforms start = Platforms.createRectangle(600, 600, 100, 100);
          Platforms options = Platforms.createRectangle(600, 450, 100, 100);
@@ -31,9 +32,7 @@ public class Mainmenu {
          menubuttons.add(exit.getRectangle());
          mouseX = input.getX();
          mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-     }
-     public void mainmenu()
-     {
+
         menurender.begin(ShapeRenderer.ShapeType.Line);
 
         for(Rectangle button : menubuttons)
@@ -45,6 +44,7 @@ public class Mainmenu {
             }
             else if(menubuttons.get(1).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {
+
             }
             else if(menubuttons.get(2).contains(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
             {

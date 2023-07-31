@@ -84,6 +84,7 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 		}
 	}
+
     @Override
 	public void create () {
 		graphics.setWindowedMode(1200, 800);
@@ -104,13 +105,15 @@ public class Gamestuff extends ApplicationAdapter {
 		playercam.position.set(playercam.viewportWidth / 2f, playercam.viewportHeight / 2f, 0);
 		playercam.update();
 
+		objLvl.leveltest();
+
 		objMenu.menurender = new ShapeRenderer();
 		objMPlayer.playerRender = new ShapeRenderer();
 		rects = new ShapeRenderer();
 	}
 	@Override
 	public void render () {
-		objMenu.mmC();
+
 		objMenu.mainmenu();
 		if(objMenu.getStart()){
 
@@ -157,6 +160,7 @@ public class Gamestuff extends ApplicationAdapter {
 			}
 			enemyCollision();
 			rects.end();
+
 		}
 	}
 	@Override
